@@ -1,6 +1,6 @@
-# Linux 一键部署 · 0.1.2
+# Linux 一键部署 · 0.1.3
 
-适用于**专用或已评估兼容的 Debian 12、Ubuntu 22.04/24.04 systemd 服务器**，amd64/arm64。脚本安装发行版PostgreSQL及Caddy（默认源缺少Caddy时使用官方稳定源）、启动控制平台和本机节点、初始化管理员和默认套餐。数据库/业务范围仍是第一阶段，详见[验收与限制](验收与限制.md)。
+适用于**专用或已评估兼容的 Debian 12、Ubuntu 22.04/24.04 systemd 服务器**，amd64/arm64。脚本安装发行版PostgreSQL及Caddy（Caddy统一使用官方稳定源）、启动控制平台和本机节点、初始化管理员和默认套餐。数据库/业务范围仍是第一阶段，详见[验收与限制](验收与限制.md)。
 
 ## 准备
 
@@ -19,7 +19,7 @@ curl -fL https://raw.githubusercontent.com/huang199800/frp-business/main/install
 
 先下载到文件再执行，避免管道占用交互输入。建议先阅读脚本；正式部署可把main替换为核实过的完整提交SHA，锁定入口脚本，或下载后对照独立发布的SHA256。下载下来的安装器会使用**内置Ed25519公钥**先验证发布清单，再校验选定架构包SHA256，验证后才解压并运行程序。不会把从相同下载站随意取得的新公钥当信任根，也不使用curl -k。
 
-安装包可从仓库GitHub Release（发布后）或固定releases/v0.1.2目录取得。默认下载地址写在install.sh中；若GitHubraw大文件受限，可用 `--base-url https://github.com/huang199800/frp-business/releases/download/v0.1.2`（实际发布后）。替代下载地址仍受同一内置公钥校验，不能替换为未签名包。
+安装包可从仓库GitHub Release（发布后）或固定releases/v0.1.3目录取得。默认下载地址写在install.sh中；若GitHubraw大文件受限，可用 `--base-url https://github.com/huang199800/frp-business/releases/download/v0.1.3`（实际发布后）。替代下载地址仍受同一内置公钥校验，不能替换为未签名包。
 
 首次要求输入并确认管理员密码，明文不写进命令参数/脚本。随后输出一次TOTP密钥和otpauth链接，请立即录入认证器并离线保存。完成后打开HTTPS控制台，用邮箱、密码、动态码登录，进入充值码管理发卡。默认套餐1台设备、3条隧道、每隧道1024KiB/s，参考价格0；请按产品规则创建正式套餐，不把默认价格当在线收款。
 
@@ -66,6 +66,6 @@ sudo bash install.sh --domain portal.example.com --node-domain node.example.com 
 
 ## 安全和验证边界
 
-公开代码库不代表整个商业产品已正式验收。本版仍无流量配额计费、账号总带宽、HTTP/HTTPS虚拟主机、桌面GUI或在线支付。PostgreSQL使用系统源；系统源缺少Caddy时按[Caddy官方说明](https://caddyserver.com/docs/install#debian-ubuntu-raspbian)启用稳定仓库，并固定校验仓库签名密钥。原生安装器使用这些软件源中的版本，发布前需核对发行版维护周期；不盲目锁定已过安全维护的操作系统包。
+公开代码库不代表整个商业产品已正式验收。本版仍无流量配额计费、账号总带宽、HTTP/HTTPS虚拟主机、桌面GUI或在线支付。PostgreSQL使用系统源；Caddy统一按[Caddy官方说明](https://caddyserver.com/docs/install#debian-ubuntu-raspbian)启用稳定仓库，并固定校验仓库签名密钥。原生安装器使用这些软件源中的版本，发布前需核对发行版维护周期；不盲目锁定已过安全维护的操作系统包。
 
 自动化安装的状态取决于真实LinuxCI/服务器结果；本机Windows语法与单元测试不等于Linux部署成功。GitHub Actions会执行Linux构建、数据库及原生FRP端到端测试、隔离localhost的一键安装和重复执行检查；以仓库实际工作流结果为准。

@@ -33,7 +33,7 @@ if os.name=='posix':
     import grp
     import pwd
 
-VERSION = '0.1.2'
+VERSION = '0.1.3'
 CONFIG = Path('/etc/frp-portal')
 ROOT = Path('/opt/frp-portal/oneclick')
 STATE = CONFIG / 'oneclick.json'
@@ -204,16 +204,16 @@ class Installer:
         run('apt-get','update',env=env)
         # Ubuntu 22.04's default sources may not provide Caddy. Use its documented
         # official stable repository, with a pinned signing-key download.
-        if subprocess.run(['apt-cache','show','caddy'],capture_output=True).returncode:
-            run('apt-get','install','-y','gnupg','ca-certificates','curl','debian-keyring','debian-archive-keyring','apt-transport-https',env=env)
-            with urllib.request.urlopen('https://dl.cloudsmith.io/public/caddy/stable/gpg.key',timeout=30) as response:key=response.read(65536)
-            if hashlib.sha256(key).hexdigest()!='783dfee04b19e851a928cd87b34710213ebbe7628f98d9f34595ab83be578c00':
-                raise RuntimeError('Caddy仓库签名密钥与已核实版本不符，请维护者重新核查，拒绝自动放行')
-            result=subprocess.run(['gpg','--batch','--dearmor'],input=key,capture_output=True)
-            if result.returncode:raise RuntimeError('Caddy签名密钥格式无效')
-            atomic('/usr/share/keyrings/caddy-stable-archive-keyring.gpg',result.stdout,0o644)
-            atomic('/etc/apt/sources.list.d/caddy-stable.list','deb [signed-by=/usr/share/keyrings/caddy-stable-archive-keyring.gpg] https://dl.cloudsmith.io/public/caddy/stable/deb/debian any-version main\n',0o644)
-            run('apt-get','update',env=env)
+        # Use the vendor stable repository on all supported distributions.
+        run('apt-get','install','-y','gnupg','ca-certificates','curl','debian-keyring','debian-archive-keyring','apt-transport-https',env=env)
+        with urllib.request.urlopen('https://dl.cloudsmith.io/public/caddy/stable/gpg.key',timeout=30) as response:key=response.read(65536)
+        if hashlib.sha256(key).hexdigest()!='783dfee04b19e851a928cd87b34710213ebbe7628f98d9f34595ab83be578c00':
+            raise RuntimeError('Caddy仓库签名密钥与已核实版本不符，请维护者重新核查，拒绝自动放行')
+        result=subprocess.run(['gpg','--batch','--dearmor'],input=key,capture_output=True)
+        if result.returncode:raise RuntimeError('Caddy签名密钥格式无效')
+        atomic('/usr/share/keyrings/caddy-stable-archive-keyring.gpg',result.stdout,0o644)
+        atomic('/etc/apt/sources.list.d/caddy-stable.list','deb [signed-by=/usr/share/keyrings/caddy-stable-archive-keyring.gpg] https://dl.cloudsmith.io/public/caddy/stable/deb/debian any-version main\n',0o644)
+        run('apt-get','update',env=env)
         run('apt-get','install','-y','postgresql','postgresql-client','caddy','openssl','ca-certificates','curl',env=env)
         try:pwd.getpwnam('frpportal')
         except KeyError:run('useradd','--system','--home-dir','/var/lib/frp-portal','--shell','/usr/sbin/nologin','frpportal')

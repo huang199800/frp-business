@@ -1,4 +1,4 @@
-# 0.1.2 · Linux一键部署修复与发布
+# 0.1.3 · Linux一键部署修复与发布
 
 - 提供签名的Linux amd64/arm64部署包、固定公钥验证入口。
 - 自动配置PostgreSQL、Caddy、管理员TOTP、本机节点和systemd服务。

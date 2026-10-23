@@ -20,7 +20,7 @@ import (
 	"time"
 )
 
-const Version = "0.1.2"
+const Version = "0.1.3"
 const FRPVersion = "0.71.1"
 const LeaseSeconds = 15
 
