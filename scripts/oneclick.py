@@ -33,7 +33,7 @@ if os.name=='posix':
     import grp
     import pwd
 
-VERSION = '0.1.3'
+VERSION = '0.1.4'
 CONFIG = Path('/etc/frp-portal')
 ROOT = Path('/opt/frp-portal/oneclick')
 STATE = CONFIG / 'oneclick.json'
@@ -205,7 +205,7 @@ class Installer:
         # Ubuntu 22.04's default sources may not provide Caddy. Use its documented
         # official stable repository, with a pinned signing-key download.
         # Use the vendor stable repository on all supported distributions.
-        run('apt-get','install','-y','gnupg','ca-certificates','curl','debian-keyring','debian-archive-keyring','apt-transport-https',env=env)
+        run('apt-get','install','-y','gnupg','ca-certificates','curl',env=env)
         with urllib.request.urlopen('https://dl.cloudsmith.io/public/caddy/stable/gpg.key',timeout=30) as response:key=response.read(65536)
         if hashlib.sha256(key).hexdigest()!='783dfee04b19e851a928cd87b34710213ebbe7628f98d9f34595ab83be578c00':
             raise RuntimeError('Caddy仓库签名密钥与已核实版本不符，请维护者重新核查，拒绝自动放行')

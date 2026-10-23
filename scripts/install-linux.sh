@@ -18,7 +18,7 @@ TARGET=${TARGET:-/opt/frp-portal/$MODE}
 "$VERIFIER" verify --key "$KEY" --manifest "$SOURCE/SHA256SUMS"
 awk '$2=="portal"{found=1}END{exit !found}' "$SOURCE/SHA256SUMS" || { echo 'portal is not signed'; exit 1; }
 VERSION_OUTPUT=$("$SOURCE/portal" version)
-[[ $VERSION_OUTPUT == 'portal 0.1.3; frp 0.71.1' ]] || { echo 'Version incompatible with installer'; exit 1; }
+[[ $VERSION_OUTPUT == 'portal 0.1.4; frp 0.71.1' ]] || { echo 'Version incompatible with installer'; exit 1; }
 command -v systemctl >/dev/null || { echo 'systemd required'; exit 1; }
 id frpportal >/dev/null 2>&1 || useradd --system --home-dir /var/lib/frp-portal --shell /usr/sbin/nologin frpportal
 install -d -m 755 "$TARGET/releases"
