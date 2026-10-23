@@ -1,0 +1,13 @@
+web/node_modules/
+dist/
+*.log
+*.key
+!release-public.key
+control.json
+node.json
+agent.json
+.env
+data/
+__pycache__/
+work/
+release/

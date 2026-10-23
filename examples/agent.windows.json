@@ -1,0 +1,6 @@
+{
+  "control_url": "https://portal.example.com",
+  "frp_path": "C:/ProgramData/FRPPortal-agent/upstream/frpc.exe",
+  "state_dir": "C:/ProgramData/FRPPortal-agent/state",
+  "ca_file": "C:/ProgramData/FRPPortal-agent/node-ca.pem"
+}

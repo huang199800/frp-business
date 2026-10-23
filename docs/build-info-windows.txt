@@ -1,0 +1,18 @@
+dist/windows-amd64/portal.exe: go1.27.3
+	path	example.com/frp-business/cmd/portal
+	mod	example.com/frp-business	(devel)	
+	dep	github.com/jackc/pgpassfile	v1.0.0	h1:/6Hmqy13Ss2zCq62VdNG8tM1wchn8zjSGOBJ6icpsIM=
+	dep	github.com/jackc/pgservicefile	v0.0.0-20240606120523-5a60cdf6a761	h1:iCEnooe7UlwOQYpKFhBabPMi4aNAfoODPEFNiAnClxo=
+	dep	github.com/jackc/pgx/v5	v5.9.2	h1:3ZhOzMWnR4yJ+RW1XImIPsD1aNSz4T4fyP7zlQb56hw=
+	dep	github.com/jackc/puddle/v2	v2.2.2	h1:PR8nw+E/1w0GLuRFSmiioY6UooMp6KJv0/61nB7icHo=
+	dep	golang.org/x/crypto	v0.56.0	h1:GUh5Ii4J5jtcseSMiRqr1jXCNHoxjeV9Fmekc2oLy6Y=
+	dep	golang.org/x/sync	v0.22.0	h1:SZjpbeLmrCk4xhRSZFNZW5gFUeCeFgjekvI/+gfScek=
+	dep	golang.org/x/sys	v0.47.0	h1:o7XGOvZQCADBQQ4Y7VNq2dRWQR7JmOUW8Kxx4ZsNgWs=
+	dep	golang.org/x/text	v0.41.0	h1:vz/seA0lnX87Othu2f/0L24RcgrXD9/YFTSuGjj3rH8=
+	build	-buildmode=exe
+	build	-compiler=gc
+	build	-trimpath=true
+	build	CGO_ENABLED=0
+	build	GOARCH=amd64
+	build	GOOS=windows
+	build	GOAMD64=v1

@@ -1,0 +1,20 @@
+# Node TLS cert/private key are provisioned out-of-band. Linux host networking only.
+services:
+ node:
+  logging:
+   driver: json-file
+   options:
+    max-size: 10m
+    max-file: '3'
+  image: frp-portal:0.1.0
+  command: [node, --config, /config/node.json]
+  network_mode: host
+  init: true
+  restart: unless-stopped
+  volumes:
+   - ./node-config:/config:ro
+   - ./node-state:/data
+  read_only: true
+  tmpfs: [/tmp]
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]

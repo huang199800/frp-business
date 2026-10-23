@@ -1,0 +1,7 @@
+{
+  "listen": "127.0.0.1:8080",
+  "database_url": "REPLACE_WITH_PRIVATE_POSTGRES_DSN",
+  "public_url": "https://portal.example.com",
+  "reverse_proxy_tls": true,
+  "signing_seed": "REPLACE_WITH_INIT_GENERATED_SEED"
+}

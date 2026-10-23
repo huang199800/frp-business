@@ -1,0 +1,25 @@
+PASS response-loss retry grants no duplicate time
+PASS active same-plan renewal
+PASS CLI one-time device binding
+PASS binding code cannot be replayed
+PASS actual upstream TCP forwarding
+PASS actual upstream UDP forwarding
+PASS CLI diagnostics
+PASS modified frpc cannot obtain unpurchased port
+PASS raw frpc operates only purchased tunnel
+PASS server enforces purchased 64 KiB/s despite raw frpc lacking client limit
+PASS cross-tenant mutation denied
+PASS user cannot access admin
+PASS established TCP stream before expiry
+PASS expiry stops new TCP connections
+PASS expiry closes existing TCP stream
+PASS expiry stops UDP forwarding
+PASS redeeming after expiry restores raw frpc forwarding
+PASS account ban closes existing and new TCP connections
+PASS control outage refuses fresh TCP authorization before lease expiration
+PASS control outage closes existing/new forwarding within finite lease
+PASS control recovery reconciles and restores forwarding
+PASS node manager termination cleans up isolated frps
+PASS node restart obtains fresh signed authorization
+PASS device credential revocation stops forwarding
+{"status": "passed", "tests": 24, "control_outage_seconds": 14.783}

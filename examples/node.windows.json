@@ -1,0 +1,10 @@
+{
+  "control_url": "https://portal.example.com",
+  "node_id": "REPLACE",
+  "credential": "REPLACE",
+  "verify_key": "REPLACE",
+  "frp_path": "C:/ProgramData/FRPPortal-node/upstream/frps.exe",
+  "tls_cert": "C:/ProgramData/FRPPortal-node/node.crt",
+  "tls_key": "C:/ProgramData/FRPPortal-node/node.key",
+  "state_dir": "C:/ProgramData/FRPPortal-node/state"
+}

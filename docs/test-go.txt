@@ -1,0 +1,21 @@
+?   	example.com/frp-business/cmd/portal	[no test files]
+=== RUN   TestExpiry
+--- PASS: TestExpiry (0.00s)
+=== RUN   TestTOTPVector
+--- PASS: TestTOTPVector (0.00s)
+=== RUN   TestLeaseSecurity
+--- PASS: TestLeaseSecurity (0.00s)
+=== RUN   TestPluginEnforcement
+--- PASS: TestPluginEnforcement (0.00s)
+=== RUN   TestPostgresConcurrentRedemption
+--- PASS: TestPostgresConcurrentRedemption (0.30s)
+=== RUN   TestPostgresCompetingUsersAndPorts
+--- PASS: TestPostgresCompetingUsersAndPorts (0.40s)
+=== RUN   TestHTTPIsolationAndCSRF
+--- PASS: TestHTTPIsolationAndCSRF (0.12s)
+=== RUN   TestMigrationRefusesIncompatibleDowngrade
+--- PASS: TestMigrationRefusesIncompatibleDowngrade (0.13s)
+=== RUN   TestReleaseTamperingRejected
+--- PASS: TestReleaseTamperingRejected (0.00s)
+PASS
+ok  	example.com/frp-business/internal/platform	1.030s

@@ -1,0 +1,27 @@
+{
+  "redemptions": {
+    "identical_after_restore": true,
+    "rows": 3,
+    "sha256": "91db0c096278bb16799da25267c2b2b2eab3fd1fcbfaa48e81a9f3529e0babcb"
+  },
+  "entitlements": {
+    "identical_after_restore": true,
+    "rows": 1,
+    "sha256": "eb5e1ea425c04bf13f0f246d7b7011ffe4278501e80181fd5b3b9dd2aa9e7895"
+  },
+  "audit": {
+    "identical_after_restore": true,
+    "rows": 16,
+    "sha256": "9f88858da8011a051b5f229d44c2e3f924d0c41efb9cc9e4fd1bed19d1e0fbb3"
+  },
+  "cards": {
+    "identical_after_restore": true,
+    "rows": 3,
+    "sha256": "1558b6e15295931e8d63af3ee33ece76a7ba38dd33c54aeb541c1a6aea6a7c0c"
+  },
+  "adjustments": {
+    "identical_after_restore": true,
+    "rows": 1,
+    "sha256": "029febaa457ff18f9d4596ad74b09a63595c75e276d882f218b393c07870f97b"
+  }
+}

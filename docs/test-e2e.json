@@ -1,0 +1,98 @@
+[
+  {
+    "test": "response-loss retry grants no duplicate time",
+    "passed": true
+  },
+  {
+    "test": "active same-plan renewal",
+    "passed": true
+  },
+  {
+    "test": "CLI one-time device binding",
+    "passed": true
+  },
+  {
+    "test": "binding code cannot be replayed",
+    "passed": true
+  },
+  {
+    "test": "actual upstream TCP forwarding",
+    "passed": true
+  },
+  {
+    "test": "actual upstream UDP forwarding",
+    "passed": true
+  },
+  {
+    "test": "CLI diagnostics",
+    "passed": true
+  },
+  {
+    "test": "modified frpc cannot obtain unpurchased port",
+    "passed": true
+  },
+  {
+    "test": "raw frpc operates only purchased tunnel",
+    "passed": true
+  },
+  {
+    "test": "server enforces purchased 64 KiB/s despite raw frpc lacking client limit",
+    "passed": true
+  },
+  {
+    "test": "cross-tenant mutation denied",
+    "passed": true
+  },
+  {
+    "test": "user cannot access admin",
+    "passed": true
+  },
+  {
+    "test": "established TCP stream before expiry",
+    "passed": true
+  },
+  {
+    "test": "expiry stops new TCP connections",
+    "passed": true
+  },
+  {
+    "test": "expiry closes existing TCP stream",
+    "passed": true
+  },
+  {
+    "test": "expiry stops UDP forwarding",
+    "passed": true
+  },
+  {
+    "test": "redeeming after expiry restores raw frpc forwarding",
+    "passed": true
+  },
+  {
+    "test": "account ban closes existing and new TCP connections",
+    "passed": true
+  },
+  {
+    "test": "control outage refuses fresh TCP authorization before lease expiration",
+    "passed": true
+  },
+  {
+    "test": "control outage closes existing/new forwarding within finite lease",
+    "passed": true
+  },
+  {
+    "test": "control recovery reconciles and restores forwarding",
+    "passed": true
+  },
+  {
+    "test": "node manager termination cleans up isolated frps",
+    "passed": true
+  },
+  {
+    "test": "node restart obtains fresh signed authorization",
+    "passed": true
+  },
+  {
+    "test": "device credential revocation stops forwarding",
+    "passed": true
+  }
+]

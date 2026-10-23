@@ -1,0 +1,6 @@
+{
+  "control_url": "https://portal.example.com",
+  "frp_path": "/opt/frp-upstream/frpc",
+  "state_dir": "/var/lib/frp-portal/agent",
+  "ca_file": "/etc/frp-portal/node-ca.pem"
+}

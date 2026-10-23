@@ -1,0 +1,56 @@
+name: frp-portal
+x-logging: &bounded-logs
+ driver: json-file
+ options:
+  max-size: 10m
+  max-file: '3'
+services:
+ postgres:
+  logging: *bounded-logs
+  image: postgres:17.6-bookworm@sha256:f3bd19c606e442c3d7bdfa8002e03fe260a1023351e0ea4598032022b68dd6e3
+  restart: unless-stopped
+  environment:
+   POSTGRES_USER: portal
+   POSTGRES_DB: portal
+   POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in a protected .env file}
+  volumes:
+   - database:/var/lib/postgresql/data
+  healthcheck:
+   test: [CMD-SHELL, 'pg_isready -U portal -d portal']
+   interval: 5s
+   timeout: 3s
+   retries: 10
+  # No public database port.
+ control:
+  logging: *bounded-logs
+  build:
+   context: ..
+   dockerfile: deploy/Dockerfile
+  image: frp-portal:0.1.0
+  restart: unless-stopped
+  init: true
+  depends_on:
+   postgres:
+    condition: service_healthy
+  volumes:
+   - ./config:/config:ro
+  read_only: true
+  tmpfs: [/tmp]
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+ caddy:
+  logging: *bounded-logs
+  image: caddy:2.10.2-alpine@sha256:4c6e91c6ed0e2fa03efd5b44747b625fec79bc9cd06ac5235a779726618e530d
+  restart: unless-stopped
+  environment:
+   PORTAL_DOMAIN: ${PORTAL_DOMAIN:?Set PORTAL_DOMAIN}
+  ports: ['80:80', '443:443']
+  volumes:
+   - ./Caddyfile:/etc/caddy/Caddyfile:ro
+   - caddy_data:/data
+   - caddy_config:/config
+  depends_on: [control]
+volumes:
+ database:
+ caddy_data:
+ caddy_config:

@@ -1,0 +1,6 @@
+web/node_modules
+dist
+.git
+*.zip
+*.key
+*.log

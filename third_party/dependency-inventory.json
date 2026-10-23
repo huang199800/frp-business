@@ -1,0 +1,2629 @@
+[
+  {
+    "name": "github.com/davecgh/go-spew",
+    "version": "v1.1.1",
+    "groups": [
+      "portal-go",
+      "frp-go"
+    ],
+    "sum": "h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=",
+    "licenses": [
+      "licenses/000-00-LICENSE"
+    ],
+    "detected": [
+      "ISC"
+    ]
+  },
+  {
+    "name": "github.com/jackc/pgpassfile",
+    "version": "v1.0.0",
+    "groups": [
+      "portal-go"
+    ],
+    "sum": "h1:/6Hmqy13Ss2zCq62VdNG8tM1wchn8zjSGOBJ6icpsIM=",
+    "licenses": [
+      "licenses/001-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/jackc/pgservicefile",
+    "version": "v0.0.0-20240606120523-5a60cdf6a761",
+    "groups": [
+      "portal-go"
+    ],
+    "sum": "h1:iCEnooe7UlwOQYpKFhBabPMi4aNAfoODPEFNiAnClxo=",
+    "licenses": [
+      "licenses/002-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/jackc/pgx/v5",
+    "version": "v5.9.2",
+    "groups": [
+      "portal-go"
+    ],
+    "sum": "h1:3ZhOzMWnR4yJ+RW1XImIPsD1aNSz4T4fyP7zlQb56hw=",
+    "licenses": [
+      "licenses/003-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/jackc/puddle/v2",
+    "version": "v2.2.2",
+    "groups": [
+      "portal-go"
+    ],
+    "sum": "h1:PR8nw+E/1w0GLuRFSmiioY6UooMp6KJv0/61nB7icHo=",
+    "licenses": [
+      "licenses/004-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/kr/pretty",
+    "version": "v0.3.0",
+    "groups": [
+      "portal-go"
+    ],
+    "sum": null,
+    "licenses": [
+      "licenses/extra-005-9-License"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/pmezard/go-difflib",
+    "version": "v1.0.0",
+    "groups": [
+      "portal-go",
+      "frp-go"
+    ],
+    "sum": "h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=",
+    "licenses": [
+      "licenses/006-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "github.com/stretchr/objx",
+    "version": "v0.1.0",
+    "groups": [
+      "portal-go"
+    ],
+    "sum": null,
+    "licenses": [
+      "licenses/extra-007-12-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/stretchr/testify",
+    "version": "v1.11.1",
+    "groups": [
+      "portal-go",
+      "frp-go"
+    ],
+    "sum": "h1:7s2iGBzp5EwR7/aIZr8ao5+dra3wiQyKjjFuvgVKu7U=",
+    "licenses": [
+      "licenses/008-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "golang.org/x/crypto",
+    "version": "v0.56.0",
+    "groups": [
+      "portal-go",
+      "frp-go"
+    ],
+    "sum": "h1:GUh5Ii4J5jtcseSMiRqr1jXCNHoxjeV9Fmekc2oLy6Y=",
+    "licenses": [
+      "licenses/009-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "golang.org/x/mod",
+    "version": "v0.38.0",
+    "groups": [
+      "portal-go",
+      "frp-go"
+    ],
+    "sum": null,
+    "licenses": [
+      "licenses/extra-010-5-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "golang.org/x/net",
+    "version": "v0.57.0",
+    "groups": [
+      "portal-go",
+      "frp-go"
+    ],
+    "sum": null,
+    "licenses": [
+      "licenses/extra-011-19-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "golang.org/x/sync",
+    "version": "v0.22.0",
+    "groups": [
+      "portal-go",
+      "frp-go"
+    ],
+    "sum": "h1:SZjpbeLmrCk4xhRSZFNZW5gFUeCeFgjekvI/+gfScek=",
+    "licenses": [
+      "licenses/012-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "golang.org/x/sys",
+    "version": "v0.47.0",
+    "groups": [
+      "portal-go",
+      "frp-go"
+    ],
+    "sum": "h1:o7XGOvZQCADBQQ4Y7VNq2dRWQR7JmOUW8Kxx4ZsNgWs=",
+    "licenses": [
+      "licenses/013-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "golang.org/x/term",
+    "version": "v0.45.0",
+    "groups": [
+      "portal-go",
+      "frp-go"
+    ],
+    "sum": null,
+    "licenses": [
+      "licenses/extra-014-4-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "golang.org/x/text",
+    "version": "v0.41.0",
+    "groups": [
+      "portal-go",
+      "frp-go"
+    ],
+    "sum": "h1:vz/seA0lnX87Othu2f/0L24RcgrXD9/YFTSuGjj3rH8=",
+    "licenses": [
+      "licenses/015-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "golang.org/x/tools",
+    "version": "v0.48.0",
+    "groups": [
+      "portal-go",
+      "frp-go"
+    ],
+    "sum": null,
+    "licenses": [
+      "licenses/extra-016-16-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "gopkg.in/check.v1",
+    "version": "v1.0.0-20201130134442-10cb98267c6c",
+    "groups": [
+      "portal-go",
+      "frp-go"
+    ],
+    "sum": null,
+    "licenses": [
+      "licenses/extra-017-18-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "gopkg.in/yaml.v3",
+    "version": "v3.0.1",
+    "groups": [
+      "portal-go",
+      "frp-go"
+    ],
+    "sum": "h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=",
+    "licenses": [
+      "licenses/018-00-LICENSE",
+      "licenses/018-01-NOTICE"
+    ],
+    "detected": [
+      "Apache-2.0",
+      "MIT"
+    ]
+  },
+  {
+    "name": "cloud.google.com/go",
+    "version": "v0.26.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:e0WKqKTd5BnrG8aKH3J3h+QvEIQtSUcf2n5UZ5ZgLtQ=",
+    "licenses": [
+      "licenses/019-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "cloud.google.com/go/compute/metadata",
+    "version": "v0.3.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:Tz+eQXMEqDIKRsmY3cHTL6FVaynIjX2QxYC4trgAKZc=",
+    "licenses": [
+      "licenses/020-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/Azure/go-ntlmssp",
+    "version": "v0.1.1",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:l+FM/EEMb0U9QZE7mKNEDw5Mu3mFiaa2GKOoTSsNDPw=",
+    "licenses": [
+      "licenses/021-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/BurntSushi/toml",
+    "version": "v0.3.1",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ=",
+    "licenses": [
+      "licenses/022-00-COPYING"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/alecthomas/kingpin/v2",
+    "version": "v2.4.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:f48lwail6p8zpO1bC4TxtqACaGqHYA22qkHjHpqDjYY=",
+    "licenses": [
+      "licenses/023-00-COPYING"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/alecthomas/units",
+    "version": "v0.0.0-20211218093645-b94a6e3cc137",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:s6gZFSlWYmbqAuRjVTiNNhvNRfY2Wxp9nhfyel4rklc=",
+    "licenses": [
+      "licenses/024-00-COPYING"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/armon/go-socks5",
+    "version": "v0.0.0-20160902184237-e75332964ef5",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:0CwZNZbxp69SHPdPJAN/hZIm0C4OItdklCFmMRWYpio=",
+    "licenses": [
+      "licenses/025-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/beorn7/perks",
+    "version": "v1.0.1",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:VlbKKnNfV8bJzeqoa4cOKqO6bYr3WgKZxO8Z16+hsOM=",
+    "licenses": [
+      "licenses/026-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/census-instrumentation/opencensus-proto",
+    "version": "v0.2.1",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:glEXhBS5PSLLv4IXzLA5yPRVX4bilULVyxxbrfOtDAk=",
+    "licenses": [
+      "licenses/027-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/cespare/xxhash/v2",
+    "version": "v2.2.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:DC2CZ1Ep5Y4k3ZQ899DldepgrayRUGE6BBZ/cd9Cj44=",
+    "licenses": [
+      "licenses/028-00-LICENSE.txt"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/chzyer/readline",
+    "version": "v1.5.1",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:upd/6fQk4src78LMRzh5vItIt361/o4uq553V8B5sGI=",
+    "licenses": [
+      "licenses/029-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/client9/misspell",
+    "version": "v0.3.4",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:ta993UF76GwbvJcIo3Y68y/M3WxlpEHPWIGDkJYwzJI=",
+    "licenses": [
+      "licenses/030-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/cncf/udpa/go",
+    "version": "v0.0.0-20191209042840-269d4d468f6f",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:WBZRG4aNOuI15bLRrCgN8fCq8E5Xuty6jGbmSNEvSsU=",
+    "licenses": [
+      "licenses/031-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/coreos/go-oidc/v3",
+    "version": "v3.18.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:V9orjXynvu5wiC9SemFTWnG4F45v403aIcjWo0d41+A=",
+    "licenses": [
+      "licenses/032-00-LICENSE",
+      "licenses/032-01-NOTICE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/cpuguy83/go-md2man/v2",
+    "version": "v2.0.3",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:qMCsGGgs+MAzDFyp9LpAe1Lqy/fY/qCovCm0qnXZOBM=",
+    "licenses": [
+      "licenses/033-00-LICENSE.md"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/emicklei/go-restful/v3",
+    "version": "v3.9.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:XwGDlfxEnQZzuopoqxwSEllNcCOM9DhhFyhFIIGKwxE=",
+    "licenses": [
+      "licenses/034-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/envoyproxy/go-control-plane",
+    "version": "v0.9.4",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:rEvIZUSZ3fx39WIi3JkQqQBitGwpELBIYWeBVh6wn+E=",
+    "licenses": [
+      "licenses/035-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/envoyproxy/protoc-gen-validate",
+    "version": "v0.1.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:EQciDnbrYxy13PgWoY8AqoxGiPrpgBZ1R8UNe3ddc+A=",
+    "licenses": [
+      "licenses/036-00-LICENSE",
+      "licenses/036-01-NOTICE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/evanphx/json-patch",
+    "version": "v4.12.0+incompatible",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:4onqiflcdA9EOZ4RxV643DvftH5pOlLGNtQ5lPWQu84=",
+    "licenses": [
+      "licenses/037-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "github.com/fatedier/golib",
+    "version": "v0.8.2",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:02n2Dg7KJ7rR7p7n4/6hBUjaLQf2J7EiHYZQsgGTvww=",
+    "licenses": [
+      "licenses/038-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/fatedier/yamux",
+    "version": "v0.2.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:H+2A9iBVh7aJlEOc1Ws1FXWOaecBf2nRv9zpFMPUWg8=",
+    "licenses": [
+      "licenses/039-00-LICENSE"
+    ],
+    "detected": [
+      "MPL-2.0"
+    ],
+    "source_url": "https://github.com/fatedier/yamux/tree/v0.2.0"
+  },
+  {
+    "name": "github.com/go-jose/go-jose/v4",
+    "version": "v4.1.4",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:moDMcTHmvE6Groj34emNPLs/qtYXRVcd6S7NHbHz3kA=",
+    "licenses": [
+      "licenses/040-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/go-kit/log",
+    "version": "v0.2.1",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:MRVx0/zhvdseW+Gza6N9rVzU/IVzaeE1SFI4raAhmBU=",
+    "licenses": [
+      "licenses/041-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/go-logfmt/logfmt",
+    "version": "v0.5.1",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:otpy5pqBCBZ1ng9RQ0dPu4PN7ba75Y/aA+UpowDyNVA=",
+    "licenses": [
+      "licenses/042-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/go-logr/logr",
+    "version": "v1.4.2",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:6pFjapn8bFcIbiKo3XT4j/BhANplGihG6tvd+8rYgrY=",
+    "licenses": [
+      "licenses/043-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/go-openapi/jsonpointer",
+    "version": "v0.19.6",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:eCs3fxoIi3Wh6vtgmLTOjdhSpiqphQ+DaPn38N2ZdrE=",
+    "licenses": [
+      "licenses/044-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/go-openapi/jsonreference",
+    "version": "v0.20.2",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:3sVjiK66+uXK/6oQ8xgcRKcFgQ5KXa2KvnJRumpMGbE=",
+    "licenses": [
+      "licenses/045-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/go-openapi/swag",
+    "version": "v0.22.3",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:yMBqmnQ0gyZvEb/+KzuWZOXgllrXT4SADYbvDaXHv/g=",
+    "licenses": [
+      "licenses/046-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/go-task/slim-sprig",
+    "version": "v0.0.0-20230315185526-52ccab3ef572",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:tfuBGBXKqDEevZMzYi5KSi8KkcZtzBcTgAUUtapy0OI=",
+    "licenses": [
+      "licenses/047-00-LICENSE.txt"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/go-task/slim-sprig/v3",
+    "version": "v3.0.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:sUs3vkvUymDpBKi3qH1YSqBQk9+9D/8M2mN1vB6EwHI=",
+    "licenses": [
+      "licenses/048-00-LICENSE.txt"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/gogo/protobuf",
+    "version": "v1.3.2",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:Ov1cvc58UF3b5XjBnZv7+opcTcQFZebYjWzi34vdm4Q=",
+    "licenses": [
+      "licenses/049-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "github.com/golang/glog",
+    "version": "v0.0.0-20160126235308-23def4e6c14b",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:VKtxabqXZkF25pY9ekfRL6a582T4P37/31XEstQ5p58=",
+    "licenses": [
+      "licenses/050-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/golang/groupcache",
+    "version": "v0.0.0-20210331224755-41bb18bfe9da",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:oI5xCqsCo564l8iNU+DwB5epxmsaqB+rhGL0m5jtYqE=",
+    "licenses": [
+      "licenses/051-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/golang/mock",
+    "version": "v1.1.1",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:G5FRp8JnTd7RQH5kemVNlMeyXQAztQ3mOWV95KxsXH8=",
+    "licenses": [
+      "licenses/052-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/golang/protobuf",
+    "version": "v1.5.4",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:i7eJL8qZTpSEXOPTxNKhASYpMn+8e5Q6AdndVa1dWek=",
+    "licenses": [
+      "licenses/053-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "github.com/golang/snappy",
+    "version": "v0.0.4",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:yAGX7huGHXlcLOEtBnF4w7FQwA26wojNCwOYAEhLjQM=",
+    "licenses": [
+      "licenses/054-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "github.com/google/btree",
+    "version": "v1.0.1",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:gK4Kx5IaGY9CD5sPJ36FHiBJ6ZXl0kilRiiCj+jdYp4=",
+    "licenses": [
+      "licenses/055-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/google/gnostic-models",
+    "version": "v0.6.8",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:yo/ABAfM5IMRsS1VnXjTBvUb61tFIHozhlYvRgGre9I=",
+    "licenses": [
+      "licenses/056-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/google/go-cmp",
+    "version": "v0.7.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:wk8382ETsv4JYUZwIsn6YpYiWiBsYLSJiTsyBybVuN8=",
+    "licenses": [
+      "licenses/057-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "github.com/google/gofuzz",
+    "version": "v1.2.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:xRy4A+RhZaiKjJ1bPfwQ8sedCA+YS2YcCHW6ec7JMi0=",
+    "licenses": [
+      "licenses/058-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/google/pprof",
+    "version": "v0.0.0-20250403155104-27863c87afa6",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:BHT72Gu3keYf3ZEu2J0b1vyeLSOYI8bm5wbJM/8yDe8=",
+    "licenses": [
+      "licenses/059-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/google/uuid",
+    "version": "v1.6.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=",
+    "licenses": [
+      "licenses/060-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "github.com/gorilla/mux",
+    "version": "v1.8.1",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:TuBL49tXwgrFYWhqrNgrUNEY92u81SPhu7sTdzQEiWY=",
+    "licenses": [
+      "licenses/061-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "github.com/gorilla/websocket",
+    "version": "v1.5.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:PPwGk2jz7EePpoHN/+ClbZu8SPxiqlu12wZP/3sWmnc=",
+    "licenses": [
+      "licenses/062-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "github.com/gregjones/httpcache",
+    "version": "v0.0.0-20180305231024-9cad4c3443a7",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:pdN6V1QBWetyv/0+wjACpqVH+eVULgEjkurDLq3goeM=",
+    "licenses": [
+      "licenses/063-00-LICENSE.txt"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/ianlancetaylor/demangle",
+    "version": "v0.0.0-20240312041847-bd984b5ce465",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:KwWnWVWCNtNq/ewIX7HIKnELmEx2nDP42yskD/pi7QE=",
+    "licenses": [
+      "licenses/064-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "github.com/imdario/mergo",
+    "version": "v0.3.6",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:xTNEAn+kxVO7dTZGu0CegyqKZmoWFI0rF8UxjlB2d28=",
+    "licenses": [
+      "licenses/065-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "github.com/inconshreveable/mousetrap",
+    "version": "v1.1.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:wN+x4NVGpMsO7ErUn/mUI3vEoE6Jt13X2s0bqwp9tc8=",
+    "licenses": [
+      "licenses/066-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/jordanlewis/gcassert",
+    "version": "v0.0.0-20250430164644-389ef753e22e",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:a+PGEeXb+exwBS3NboqXHyxarD9kaboBbrSp+7GuBuc=",
+    "licenses": [
+      "licenses/067-00-LICENSE.txt"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/josharian/intern",
+    "version": "v1.0.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:vlS4z54oSdjm0bgjRigI+G1HpF+tI+9rE5LLzOg8HmY=",
+    "licenses": [
+      "licenses/068-00-license.md"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/jpillora/backoff",
+    "version": "v1.0.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:uvFg412JmmHBHw7iwprIxkPMI+sGQ4kzOWsMeHnm2EA=",
+    "licenses": [
+      "licenses/069-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/json-iterator/go",
+    "version": "v1.1.12",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:PV8peI4a0ysnczrg+LtxykD8LfKY9ML6u2jnxaEnrnM=",
+    "licenses": [
+      "licenses/070-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/julienschmidt/httprouter",
+    "version": "v1.3.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:U0609e9tgbseu3rBINet9P48AI/D3oJs4dN7jwJOQ1U=",
+    "licenses": [
+      "licenses/071-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "github.com/klauspost/cpuid/v2",
+    "version": "v2.2.6",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:ndNyv040zDGIDh8thGkXYjnFtiN02M1PVVF+JE/48xc=",
+    "licenses": [
+      "licenses/072-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/klauspost/reedsolomon",
+    "version": "v1.12.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:I5FEp3xSwVCcEh3F5A7dofEfhXdF/bWhQWPH+XwBFno=",
+    "licenses": [
+      "licenses/073-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/kr/pretty",
+    "version": "v0.3.1",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:flRD4NNwYAUpkphVc1HcthR4KEIFJ65n8Mw5qdRn3LE=",
+    "licenses": [
+      "licenses/074-00-License"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/kr/text",
+    "version": "v0.2.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:5Nx0Ya0ZqY2ygV366QzturHI13Jq95ApcVaJBhpS+AY=",
+    "licenses": [
+      "licenses/075-00-License"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/mailru/easyjson",
+    "version": "v0.7.7",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:UGYAvKxe3sBsEDzO8ZeWOSlIQfWFlxbzLZe7hwFURr0=",
+    "licenses": [
+      "licenses/076-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/mattn/go-runewidth",
+    "version": "v0.0.15",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:UNAjwbU9l54TA3KzvqLGxwWjHmMgBUVhBiTjelZgg3U=",
+    "licenses": [
+      "licenses/077-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/moby/spdystream",
+    "version": "v0.2.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:cjW1zVyyoiM0T7b6UoySUFqzXMoqRckQtXwGPiBhOM8=",
+    "licenses": [
+      "licenses/078-00-LICENSE",
+      "licenses/078-01-NOTICE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/modern-go/concurrent",
+    "version": "v0.0.0-20180306012644-bacd9c7ef1dd",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:TRLaZ9cD/w8PVh93nsPXa1VrQ6jlwL5oN8l14QlcNfg=",
+    "licenses": [
+      "licenses/079-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/modern-go/reflect2",
+    "version": "v1.0.2",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:xBagoLtFs94CBntxluKeaWgTMpvLxC4ur3nMaC9Gz0M=",
+    "licenses": [
+      "licenses/080-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/munnerz/goautoneg",
+    "version": "v0.0.0-20191010083416-a7dc8b61c822",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:C3w9PqII01/Oq1c1nUAm88MOHcQC9l5mIlSMApZMrHA=",
+    "licenses": [
+      "licenses/081-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "github.com/mwitkow/go-conntrack",
+    "version": "v0.0.0-20190716064945-2f068394615f",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:KUppIJq7/+SVif2QVs3tOP0zanoHgBEVAwHxUSIzRqU=",
+    "licenses": [
+      "licenses/082-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/mxk/go-flowrate",
+    "version": "v0.0.0-20140419014527-cca7078d478f",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:y5//uYreIhSUg3J1GEMiLbxo1LJaP8RfCpH6pymGZus=",
+    "licenses": [
+      "licenses/083-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "github.com/onsi/ginkgo/v2",
+    "version": "v2.23.4",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:ktYTpKJAVZnDT4VjxSbiBenUjmlL/5QkBEocaWXiQus=",
+    "licenses": [
+      "licenses/084-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/onsi/gomega",
+    "version": "v1.36.3",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:hID7cr8t3Wp26+cYnfcjR6HpJ00fdogN6dqZ1t6IylU=",
+    "licenses": [
+      "licenses/085-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/pelletier/go-toml/v2",
+    "version": "v2.2.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:QLgLl2yMN7N+ruc31VynXs1vhMZa7CeHHejIeBAsoHo=",
+    "licenses": [
+      "licenses/086-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/peterbourgon/diskv",
+    "version": "v2.0.1+incompatible",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:UBdAOUP5p4RWqPBg048CAvpKN+vxiaj6gdUUzhl4XmI=",
+    "licenses": [
+      "licenses/087-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/pires/go-proxyproto",
+    "version": "v0.15.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:dTshmNbFm/D+0+sbrxUuddPOZ5Y0B7c5NhtsBkm6LqI=",
+    "licenses": [
+      "licenses/088-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/pkg/errors",
+    "version": "v0.9.1",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=",
+    "licenses": [
+      "licenses/089-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "github.com/prashantv/gostub",
+    "version": "v1.1.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:BTyx3RfQjRHnUWaGF9oQos79AlQ5k8WNktv7VGvVH4g=",
+    "licenses": [
+      "licenses/090-00-LICENSE.md"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/prometheus/client_golang",
+    "version": "v1.19.1",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:wZWJDwK+NameRJuPGDhlnFgx8e8HN3XHQeLaYJFJBOE=",
+    "licenses": [
+      "licenses/091-00-LICENSE",
+      "licenses/091-01-NOTICE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/prometheus/client_model",
+    "version": "v0.5.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:VQw1hfvPvk3Uv6Qf29VrPF32JB6rtbgI6cYPYQjL0Qw=",
+    "licenses": [
+      "licenses/092-00-LICENSE",
+      "licenses/092-01-NOTICE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/prometheus/common",
+    "version": "v0.48.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:QO8U2CdOzSn1BBsmXJXduaaW+dY/5QLjfB8svtSzKKE=",
+    "licenses": [
+      "licenses/093-00-LICENSE",
+      "licenses/093-01-NOTICE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/prometheus/procfs",
+    "version": "v0.12.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:jluTpSng7V9hY0O2R9DzzJHYb2xULk9VTR1V1R/k6Bo=",
+    "licenses": [
+      "licenses/094-00-LICENSE",
+      "licenses/094-01-NOTICE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/quic-go/go-ossfuzz-seeds",
+    "version": "v0.1.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:APacT+iIaNF6fd8AGEiN3bT/Jtkd2jz4v4TzM7MFjy0=",
+    "licenses": [
+      "licenses/095-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/quic-go/qpack",
+    "version": "v0.6.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:g7W+BMYynC1LbYLSqRt8PBg5Tgwxn214ZZR34VIOjz8=",
+    "licenses": [
+      "licenses/096-00-LICENSE.md"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/quic-go/quic-go",
+    "version": "v0.60.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:xcQioE8OM66UQLeUMHltK1CCcOu3JbVB4JAQdDQSB+0=",
+    "licenses": [
+      "licenses/097-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/rivo/uniseg",
+    "version": "v0.2.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:S1pD9weZBuJdFmowNwbpi7BJ8TNftyUImj/0WQi72jY=",
+    "licenses": [
+      "licenses/098-00-LICENSE.txt"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/rodaine/table",
+    "version": "v1.2.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:38HEnwK4mKSHQJIkavVj+bst1TEY7j9zhLMWu4QJrMA=",
+    "licenses": [
+      "licenses/099-00-license"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/rogpeppe/go-internal",
+    "version": "v1.10.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:TMyTOH3F/DB16zRVcYyreMH6GnZZrwQVAoYjRBZyWFQ=",
+    "licenses": [
+      "licenses/100-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "github.com/russross/blackfriday/v2",
+    "version": "v2.1.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:JIOH55/0cWyOuilr9/qlrm0BSXldqnqwMsf35Ld67mk=",
+    "licenses": [
+      "licenses/101-00-LICENSE.txt"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "github.com/samber/lo",
+    "version": "v1.47.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:z7RynLwP5nbyRscyvcD043DWYoOcYRv3mV8lBeqOCLc=",
+    "licenses": [
+      "licenses/102-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/songgao/water",
+    "version": "v0.0.0-20200317203138-2b4b6d7c09d8",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:TG/diQgUe0pntT/2D9tmUCz4VNwm9MfrtPr0SU2qSX8=",
+    "licenses": [
+      "licenses/103-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "github.com/spf13/cobra",
+    "version": "v1.8.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:7aJaZx1B85qltLMc546zn58BxxfZdR/W22ej9CFoEf0=",
+    "licenses": [
+      "licenses/104-00-LICENSE.txt"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/spf13/pflag",
+    "version": "v1.0.5",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:iy+VFUOCP1a+8yFto/drg2CJ5u0yRoB7fZw3DKv/JXA=",
+    "licenses": [
+      "licenses/105-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "github.com/stretchr/objx",
+    "version": "v0.5.2",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:xuMeJ0Sdp5ZMRXx/aWO6RZxdr3beISkG5/G/aIRr3pY=",
+    "licenses": [
+      "licenses/106-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/templexxx/cpu",
+    "version": "v0.1.1",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:isxHaxBXpYFWnk2DReuKkigaZyrjs2+9ypIdGP4h+HI=",
+    "licenses": [
+      "licenses/107-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "github.com/templexxx/xorsimd",
+    "version": "v0.4.3",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:9AQTFHd7Bhk3dIT7Al2XeBX5DWOvsUPZCuhyAtNbHjU=",
+    "licenses": [
+      "licenses/108-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/tidwall/gjson",
+    "version": "v1.17.1",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:wlYEnwqAHgzmhNUFfw7Xalt2JzQvsMx2Se4PcoFCT/U=",
+    "licenses": [
+      "licenses/109-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/tidwall/match",
+    "version": "v1.1.1",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:+Ho715JplO36QYgwN9PGYNhgZvoUSc9X2c80KVTi+GA=",
+    "licenses": [
+      "licenses/110-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/tidwall/pretty",
+    "version": "v1.2.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:RWIZEg2iJ8/g6fDDYzMpobmaoGh5OLl4AXtGUGPcqCs=",
+    "licenses": [
+      "licenses/111-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/tjfoc/gmsm",
+    "version": "v1.4.1",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:aMe1GlZb+0bLjn+cKTPEvvn9oUEBlJitaZiiBwsbgho=",
+    "licenses": [
+      "licenses/112-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/vishvananda/netlink",
+    "version": "v1.3.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:X7l42GfcV4S6E4vHTsw48qbrV+9PVojNfIhZcwQdrZk=",
+    "licenses": [
+      "licenses/113-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/vishvananda/netns",
+    "version": "v0.0.4",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:Oeaw1EM2JMxD51g9uhtC0D7erkIjgmj8+JZc26m1YX8=",
+    "licenses": [
+      "licenses/114-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "github.com/xhit/go-str2duration/v2",
+    "version": "v2.1.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:lxklc02Drh6ynqX+DdPyp5pCKLUQpRT8bp8Ydu2Bstc=",
+    "licenses": [
+      "licenses/115-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "github.com/xtaci/kcp-go/v5",
+    "version": "v5.6.13",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:FEjtz9+D4p8t2x4WjciGt/jsIuhlWjjgPCCWjrVR4Hk=",
+    "licenses": [
+      "licenses/116-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/xtaci/lossyconn",
+    "version": "v0.0.0-20200209145036-adba10fffc37",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:EWU6Pktpas0n8lLQwDsRyZfmkPeRbdgPtW609es+/9E=",
+    "licenses": [
+      "licenses/117-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "github.com/yuin/goldmark",
+    "version": "v1.4.13",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:fVcFKWvrslecOb/tg+Cc05dkeYx540o0FuFt3nUVDoE=",
+    "licenses": [
+      "licenses/118-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "go.uber.org/automaxprocs",
+    "version": "v1.6.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:O3y2/QNTOdbF+e/dpXNNW7Rx2hZ4sTIPyybbxyNqTUs=",
+    "licenses": [
+      "licenses/119-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "go.uber.org/mock",
+    "version": "v0.5.2",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:LbtPTcP8A5k9WPXj54PPPbjcI4Y6lhyOZXn+VS7wNko=",
+    "licenses": [
+      "licenses/120-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "golang.org/x/exp",
+    "version": "v0.0.0-20190121172915-509febef88a4",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:c2HOrn5iMezYjSlGPncknSEr/8x5LELb/ilJbXi9DEA=",
+    "licenses": [
+      "licenses/121-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "golang.org/x/lint",
+    "version": "v0.0.0-20190313153728-d0100b6bd8b3",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:XQyxROzUlZH+WIQwySDgnISgOivlhjIEwaQaJEJrrN0=",
+    "licenses": [
+      "licenses/122-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "golang.org/x/oauth2",
+    "version": "v0.36.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:peZ/1z27fi9hUOFCAZaHyrpWG5lwe0RJEEEeH0ThlIs=",
+    "licenses": [
+      "licenses/123-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "golang.org/x/telemetry",
+    "version": "v0.0.0-20260708182218-49f421fb7959",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:RJhm5l6Fo4rmEIcndxDllNhhf/fAx8qIm4t6A7vpm2A=",
+    "licenses": [
+      "licenses/124-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "golang.org/x/time",
+    "version": "v0.10.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:3usCWA8tQn0L8+hFJQNgzpWbd89begxN66o1Ojdn5L4=",
+    "licenses": [
+      "licenses/125-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "golang.org/x/xerrors",
+    "version": "v0.0.0-20191204190536-9bdfabe68543",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:E7g+9GITq07hpfrRu66IVDexMakfv52eLZ2CXBWiKr4=",
+    "licenses": [
+      "licenses/126-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "golang.zx2c4.com/wintun",
+    "version": "v0.0.0-20230126152724-0fa3db229ce2",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:B82qJJgjvYKsXS9jeunTOisW56dUokqW/FOteYJJ/yg=",
+    "licenses": [
+      "licenses/127-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "golang.zx2c4.com/wireguard",
+    "version": "v0.0.0-20231211153847-12269c276173",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:/jFs0duh4rdb8uIfPMv78iAJGcPKDeqAFnaLBropIC4=",
+    "licenses": [
+      "licenses/128-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "google.golang.org/appengine",
+    "version": "v1.6.7",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:FZR1q0exgwxzPzp/aF+VccGrSfxfPpkBqjIIEq3ru6c=",
+    "licenses": [
+      "licenses/129-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "google.golang.org/genproto",
+    "version": "v0.0.0-20190819201941-24fa4b261c55",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:gSJIx1SDwno+2ElGhA4+qG2zF97qiUzTM+rQ0klBOcE=",
+    "licenses": [
+      "licenses/130-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "google.golang.org/grpc",
+    "version": "v1.31.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:T7P4R73V3SSDPhH7WW7ATbfViLtmamH0DKrP3f9AuDI=",
+    "licenses": [
+      "licenses/131-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "google.golang.org/protobuf",
+    "version": "v1.36.5",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:tPhr+woSbjfYvY6/GPufUoYizxw1cF/yFoxJ2fmpwlM=",
+    "licenses": [
+      "licenses/132-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "gopkg.in/inf.v0",
+    "version": "v0.9.1",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:73M5CoZyi3ZLMOyDlQh031Cx6N9NDJ2Vvfl76EDAgDc=",
+    "licenses": [
+      "licenses/133-00-LICENSE"
+    ],
+    "detected": [
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "gopkg.in/ini.v1",
+    "version": "v1.67.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:Dgnx+6+nfE+IfzjUEISNeydPJh9AXNNsWbGP9KzCsOA=",
+    "licenses": [
+      "licenses/134-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "gopkg.in/yaml.v2",
+    "version": "v2.4.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:D8xgwECY7CYvx+Y2n4sBz93Jn9JRvxdiyyo8CTfuKaY=",
+    "licenses": [
+      "licenses/135-00-LICENSE",
+      "licenses/135-01-LICENSE.libyaml",
+      "licenses/135-02-NOTICE"
+    ],
+    "detected": [
+      "Apache-2.0",
+      "MIT"
+    ]
+  },
+  {
+    "name": "gvisor.dev/gvisor",
+    "version": "v0.0.0-20230927004350-cbd86285d259",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:TbRPT0HtzFP3Cno1zZo7yPzEEnfu8EjLfl6IU9VfqkQ=",
+    "licenses": [
+      "licenses/136-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0",
+      "MIT"
+    ]
+  },
+  {
+    "name": "honnef.co/go/tools",
+    "version": "v0.0.0-20190523083050-ea95bdfd59fc",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:/hemPrYIhOhy8zYrNj+069zDB68us2sMGsfkFJO0iZs=",
+    "licenses": [
+      "licenses/137-00-LICENSE"
+    ],
+    "detected": [
+      "MIT"
+    ]
+  },
+  {
+    "name": "k8s.io/api",
+    "version": "v0.28.8",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:G0/G7yX1puRAcon/+XPLsKXZ9A5L7Ds6oKbDIe027xw=",
+    "licenses": [
+      "licenses/138-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "k8s.io/apimachinery",
+    "version": "v0.28.8",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:hi/nrxHwk4QLV+W/SHve1bypTE59HCDorLY1stBIxKQ=",
+    "licenses": [
+      "licenses/139-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "k8s.io/client-go",
+    "version": "v0.28.8",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:TE59Tjd87WKvS2FPBTfIKLFX0nQJ4SSHsnDo5IHjgOw=",
+    "licenses": [
+      "licenses/140-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "k8s.io/klog/v2",
+    "version": "v2.100.1",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:7WCHKK6K8fNhTqfBhISHQ97KrnJNFZMcQvKp7gP/tmg=",
+    "licenses": [
+      "licenses/141-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "k8s.io/kube-openapi",
+    "version": "v0.0.0-20230717233707-2695361300d9",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:LyMgNKD2P8Wn1iAwQU5OhxCKlKJy0sHc+PcDwFB24dQ=",
+    "licenses": [
+      "licenses/142-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "k8s.io/utils",
+    "version": "v0.0.0-20230406110748-d93618cff8a2",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:qY1Ad8PODbnymg2pRbkyMT/ylpTrCM8P2RJ0yroCyIk=",
+    "licenses": [
+      "licenses/143-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "sigs.k8s.io/json",
+    "version": "v0.0.0-20221116044647-bc3834ca7abd",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:EDPBXCAspyGV4jQlpZSudPeMmr1bNJefnuqLsRAsHZo=",
+    "licenses": [
+      "licenses/144-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0",
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "sigs.k8s.io/structured-merge-diff/v4",
+    "version": "v4.2.3",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:PRbqxJClWWYMNV1dhaG4NsibJbArud9kFxnAMREiWFE=",
+    "licenses": [
+      "licenses/145-00-LICENSE"
+    ],
+    "detected": [
+      "Apache-2.0"
+    ]
+  },
+  {
+    "name": "sigs.k8s.io/yaml",
+    "version": "v1.3.0",
+    "groups": [
+      "frp-go"
+    ],
+    "sum": "h1:a2VclLzOGrwOHDiV8EfBGhvjHvP46CtW5j6POvhYGGo=",
+    "licenses": [
+      "licenses/146-00-LICENSE"
+    ],
+    "detected": [
+      "MIT",
+      "BSD-family"
+    ]
+  },
+  {
+    "name": "@babel/helper-string-parser",
+    "version": "7.29.7",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-Pb5ijPrZ89GDH8223L4UP8i6QApWxs04RbPQJTeWDV0/keR2E36MeKnyr6LYmUUvqRRI+Iv87SuF1W6ErINzYw==",
+    "licenses": [
+      "licenses/147-00-LICENSE"
+    ]
+  },
+  {
+    "name": "@babel/helper-validator-identifier",
+    "version": "7.29.7",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-qehxGkRj55h/ff8EMaJ+cYhyaKlHIxqYDn682wQD7RNp9UujOQsHog2uS0r2vzr4pW+sXf90NeeayjcNaX3fFg==",
+    "licenses": [
+      "licenses/148-00-LICENSE"
+    ]
+  },
+  {
+    "name": "@babel/parser",
+    "version": "7.29.9",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-CjXrNHTnvqBVqHgdBysY3vk2T8tpJHb5/RMeHJBTyVa9xgugCB0CJTx/3oO8RV2QRQP391RWpB7D6hLjm8V9uA==",
+    "licenses": [
+      "licenses/149-00-LICENSE"
+    ]
+  },
+  {
+    "name": "@babel/types",
+    "version": "7.29.8",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-Vj1jF3cPfxg7OAfoI7QnVKLoILlm2JF9pnVHrX8qx7AHMiYWT+NDAA7jChlNgRS4WTLc/fD1lXLmPixluj+3Gg==",
+    "licenses": [
+      "licenses/150-00-LICENSE"
+    ]
+  },
+  {
+    "name": "@jridgewell/sourcemap-codec",
+    "version": "1.6.0",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-T7jf+5zgsZHwNJ4lvQ7/aezbyk0nNX+zJVWpmHA7VYsEx7a7qr5Rg5IbtJFqkgze5Y2sruq1RUY8Q837Od7iFw==",
+    "licenses": [
+      "licenses/151-00-LICENSE"
+    ]
+  },
+  {
+    "name": "@oxc-project/types",
+    "version": "0.155.0",
+    "groups": [
+      "web-dev"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-SeE8JPwW1xs1tHeNycjUtUBdhorRa8o4jlvjwk49R7/Z291i+4DQa7JJIgOm/TaYQZx+QrPQbVJ/9c8dMIZN8Q==",
+    "licenses": [
+      "licenses/152-00-LICENSE"
+    ]
+  },
+  {
+    "name": "@rolldown/binding-win32-x64-msvc",
+    "version": "1.2.15",
+    "groups": [
+      "web-dev"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-HFZd2QNQYn1JbIi+Hpd7H+r/lkWxcfIu28nirZ6eCn2LafuvmExMlb/P96Sfx5tf7pPArw39IdhmCF8vmV+NhQ==",
+    "licenses": [
+      "licenses/rolldown-native-LICENSE"
+    ]
+  },
+  {
+    "name": "@rolldown/pluginutils",
+    "version": "1.0.1",
+    "groups": [
+      "web-dev"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-2j9bGt5Jh8hj+vPtgzPtl72j0yRxHAyumoo6TNfAjsLB04UtpSvPbPcDcBMxz7n+9CYB0c1GxQFxYRg2jimqGw==",
+    "licenses": [
+      "licenses/154-00-LICENSE"
+    ]
+  },
+  {
+    "name": "@vitejs/plugin-vue",
+    "version": "6.0.10",
+    "groups": [
+      "web-dev"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-b80aUQh3n+qEzzZm5oQp3rT2QImeCx58K6eFl/RkJ3d65KW0kTuv5lNsLRVAjbW9YRUpo/wzmvzMgV34bTAItA==",
+    "licenses": [
+      "licenses/155-00-LICENSE"
+    ]
+  },
+  {
+    "name": "@volar/language-core",
+    "version": "2.4.28",
+    "groups": [
+      "web-dev"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-w4qhIJ8ZSitgLAkVay6AbcnC7gP3glYM3fYwKV3srj8m494E3xtrCv6E+bWviiK/8hs6e6t1ij1s2Endql7vzQ==",
+    "licenses": [
+      "licenses/156-00-LICENSE"
+    ]
+  },
+  {
+    "name": "@volar/source-map",
+    "version": "2.4.28",
+    "groups": [
+      "web-dev"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-yX2BDBqJkRXfKw8my8VarTyjv48QwxdJtvRgUpNE5erCsgEUdI2DsLbpa+rOQVAJYshY99szEcRDmyHbF10ggQ==",
+    "licenses": [
+      "licenses/157-00-LICENSE"
+    ]
+  },
+  {
+    "name": "@volar/typescript",
+    "version": "2.4.28",
+    "groups": [
+      "web-dev"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-Ja6yvWrbis2QtN4ClAKreeUZPVYMARDYZl9LMEv1iQ1QdepB6wn0jTRxA9MftYmYa4DQ4k/DaSZpFPUfxl8giw==",
+    "licenses": [
+      "licenses/158-00-LICENSE"
+    ]
+  },
+  {
+    "name": "@vue/compiler-core",
+    "version": "3.5.44",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-k34nCytbK8PQ1gR2mGROYOw6Pnv/mumqIdrZ3x2tbyXZDWm7ViKGLTfdB+DRrWqEQsLgGJvn0WN9jBif5zCTLQ==",
+    "licenses": [
+      "licenses/159-00-LICENSE"
+    ]
+  },
+  {
+    "name": "@vue/compiler-dom",
+    "version": "3.5.44",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-W5AoBFWdw1lQAKiHowkfgFKFab82oSRT6sGsPfw/q1GRjsy/ZJFLHGhJyBRIFN9APLTUduDH9U2JAiPOIyKuYg==",
+    "licenses": [
+      "licenses/160-00-LICENSE"
+    ]
+  },
+  {
+    "name": "@vue/compiler-sfc",
+    "version": "3.5.44",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-dzHmQ4jXTpdr5FjIQUeykVakN/uzqFbUo9/C5ikBFg3a3PeM6uRxeczx1ZbXBML0/zJstEh3ygYipzR5Z7b2Pw==",
+    "licenses": [
+      "licenses/161-00-LICENSE"
+    ]
+  },
+  {
+    "name": "@vue/compiler-ssr",
+    "version": "3.5.44",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-xr5gb1JVHlfXJwSlRz1FeP6uxoazdzHuMTVLE7up+4Vrqxk219CvxLPxD9NXBt47yvZW7+p4DXfyp4O1fkByIA==",
+    "licenses": [
+      "licenses/162-00-LICENSE"
+    ]
+  },
+  {
+    "name": "@vue/language-core",
+    "version": "3.3.13",
+    "groups": [
+      "web-dev"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-axA0Xemn5LuUKuKWob0/kVq7xQ2mJJM6VqA9Exvt35nM9yRC31goWVve/G/Zb2ZCLsXC8FHYjjfXlnshknSCew==",
+    "licenses": [
+      "licenses/163-00-LICENSE"
+    ]
+  },
+  {
+    "name": "@vue/reactivity",
+    "version": "3.5.44",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-u+QJdKeBBEADkPdevsL+6E12QlYVfBD8Zcw5qjDQKtamI6l14KyqazJMobhCKelhWN5zpyKUiEDoTyHE93cqWw==",
+    "licenses": [
+      "licenses/164-00-LICENSE"
+    ]
+  },
+  {
+    "name": "@vue/runtime-core",
+    "version": "3.5.44",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-uEa/ndwjhrrhnOfb2p+sZy6zeoamJOISqaLSJGk/8R6nABT1ZldpzcJoPzKj+zHVomVBPcmQYyC2r4LtvDV6CQ==",
+    "licenses": [
+      "licenses/165-00-LICENSE"
+    ]
+  },
+  {
+    "name": "@vue/runtime-dom",
+    "version": "3.5.44",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-3fc4ARcXVhVBaJ3ujWiNZJARD6pkyRcwG+ZYhMzjKtKUp7MAY0HLwr7r3Smep3Li6ZaWT6ewdmx8XqdaD5oNZg==",
+    "licenses": [
+      "licenses/166-00-LICENSE"
+    ]
+  },
+  {
+    "name": "@vue/server-renderer",
+    "version": "3.5.44",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-R4S1UoH4h5Frrauv8Z5XE5TxV9oBiUSgWIC4TyVK1FK+RocRnOLwFA5Xcmo2011RlgJp+AbZCnw6afrhlgRuUQ==",
+    "licenses": [
+      "licenses/167-00-LICENSE"
+    ]
+  },
+  {
+    "name": "@vue/shared",
+    "version": "3.5.44",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-H82XLH0DjmSOdbEwO15x3QTo1f5PWEtv237eLpYKc0mqLu+B8hnq16lFWmuBmNurkeiG3wr+oM1FhOll/YVFRg==",
+    "licenses": [
+      "licenses/168-00-LICENSE"
+    ]
+  },
+  {
+    "name": "alien-signals",
+    "version": "3.2.1",
+    "groups": [
+      "web-dev"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-I8FjmltrfnDFoZedi5CG8DghVYNhzb/Ijluz7tCSJH0xpd0484Kowhbb1XDYOxfJpU1p5wnM2X54dA+IfGyD1g==",
+    "licenses": [
+      "licenses/169-00-LICENSE"
+    ]
+  },
+  {
+    "name": "csstype",
+    "version": "3.2.3",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==",
+    "licenses": [
+      "licenses/170-00-LICENSE"
+    ]
+  },
+  {
+    "name": "detect-libc",
+    "version": "2.1.2",
+    "groups": [
+      "web-dev"
+    ],
+    "declared_license": "Apache-2.0",
+    "integrity": "sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==",
+    "licenses": [
+      "licenses/171-00-LICENSE"
+    ]
+  },
+  {
+    "name": "entities",
+    "version": "7.0.1",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "BSD-2-Clause",
+    "integrity": "sha512-TWrgLOFUQTH994YUyl1yT4uyavY5nNB5muff+RtWaqNVCAK408b5ZnnbNAUEWLTCpum9w6arT70i1XdQ4UeOPA==",
+    "licenses": [
+      "licenses/172-00-LICENSE"
+    ]
+  },
+  {
+    "name": "estree-walker",
+    "version": "2.0.2",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==",
+    "licenses": [
+      "licenses/173-00-LICENSE"
+    ]
+  },
+  {
+    "name": "fdir",
+    "version": "6.5.0",
+    "groups": [
+      "web-dev"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg==",
+    "licenses": [
+      "licenses/174-00-LICENSE"
+    ]
+  },
+  {
+    "name": "lightningcss",
+    "version": "1.33.0",
+    "groups": [
+      "web-dev"
+    ],
+    "declared_license": "MPL-2.0",
+    "integrity": "sha512-WkUDrojuJs0xkgGf2udWxa3yGBRxPtxUkB79i6aCZLRgc7PM8fZe9TosfPDcvEpQZbuFASnHYmRLBLUbmLOIIA==",
+    "licenses": [
+      "licenses/175-00-LICENSE"
+    ]
+  },
+  {
+    "name": "lightningcss-win32-x64-msvc",
+    "version": "1.33.0",
+    "groups": [
+      "web-dev"
+    ],
+    "declared_license": "MPL-2.0",
+    "integrity": "sha512-OlEICDx/Xl0FqSp4bry8zFnCvGpig3Gl4gCquvYwHuqJKEC1+n9NgDniFvqHGmMv1ZkqDJrDqKKSykTDX+ehuA==",
+    "licenses": [
+      "licenses/176-00-LICENSE"
+    ]
+  },
+  {
+    "name": "magic-string",
+    "version": "0.30.21",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==",
+    "licenses": [
+      "licenses/177-00-LICENSE"
+    ]
+  },
+  {
+    "name": "muggle-string",
+    "version": "0.4.1",
+    "groups": [
+      "web-dev"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-VNTrAak/KhO2i8dqqnqnAHOa3cYBwXEZe9h+D5h/1ZqFSTEFHdM65lR7RoIqq3tBBYavsOXV84NoHXZ0AkPyqQ==",
+    "licenses": [
+      "licenses/178-00-LICENSE"
+    ]
+  },
+  {
+    "name": "nanoid",
+    "version": "3.3.20",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-uKdg2G3GNCKQn9byYOpxbGqrT2fGO5KRt5J/8b3pok8rT6qxGWF6hxMyJiEYtAf+FVyYuD9hRaDqX5uPFYJ4ZQ==",
+    "licenses": [
+      "licenses/179-00-LICENSE"
+    ]
+  },
+  {
+    "name": "path-browserify",
+    "version": "1.0.1",
+    "groups": [
+      "web-dev"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-b7uo2UCUOYZcnF/3ID0lulOJi/bafxa1xPe7ZPsammBSpjSWQkjNxlt635YGS2MiR9GjvuXCtz2emr3jbsz98g==",
+    "licenses": [
+      "licenses/180-00-LICENSE"
+    ]
+  },
+  {
+    "name": "picocolors",
+    "version": "1.1.1",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "ISC",
+    "integrity": "sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==",
+    "licenses": [
+      "licenses/181-00-LICENSE"
+    ]
+  },
+  {
+    "name": "picomatch",
+    "version": "4.0.7",
+    "groups": [
+      "web-dev"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-qcJu88Q2IWqJsDD529JKMdwGm/dvInW4HvQnRwiH9JtihJvzGOscDtHE3x1pBKeUOTysQ8kVmLnJ2kJu7yhcGA==",
+    "licenses": [
+      "licenses/182-00-LICENSE"
+    ]
+  },
+  {
+    "name": "postcss",
+    "version": "8.5.31",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-YUbWYCgErwnMAVkjUnYa+KlMBzGpHwiIt/DE7f0G33AuX2LH9UcTk6KgWxd3zRU+pN3u/C+Xl3EnMLM4Hea7Sg==",
+    "licenses": [
+      "licenses/183-00-LICENSE"
+    ]
+  },
+  {
+    "name": "rolldown",
+    "version": "1.2.15",
+    "groups": [
+      "web-dev"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-6odND+fel5zVw3I4Yc2e69gvguDnX0CAAGiNDZSq4ik5WUcaLrkD2GLuog0XcODbor31hZ5ayEMgVDno+KPV5g==",
+    "licenses": [
+      "licenses/184-00-LICENSE"
+    ]
+  },
+  {
+    "name": "source-map-js",
+    "version": "1.2.2",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "BSD-3-Clause",
+    "integrity": "sha512-KGj/8Y43x35aZVDtt+J4mK1hoLGHULMYfSkODJNQjNDC3oW1PqPoxMwo0pLUsWM/UEGzON/NxeHywEfNXNP3Vw==",
+    "licenses": [
+      "licenses/185-00-LICENSE"
+    ]
+  },
+  {
+    "name": "tinyglobby",
+    "version": "0.2.17",
+    "groups": [
+      "web-dev"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-wXR/dYpcqKmfWpEdZjiKJOwCNFndD0DMnrW/cYjVGttEkBfVgcLFHoNrlj47mjOVic9yyNu65alsgF4NQyTa2g==",
+    "licenses": [
+      "licenses/186-00-LICENSE"
+    ]
+  },
+  {
+    "name": "typescript",
+    "version": "5.9.3",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "Apache-2.0",
+    "integrity": "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==",
+    "licenses": [
+      "licenses/187-00-LICENSE.txt"
+    ]
+  },
+  {
+    "name": "vite",
+    "version": "8.3.5",
+    "groups": [
+      "web-dev"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-z1YpjieJ9g0ebTmQpLBv/oq9E3F9EIlOe+7LahW8SrE3LTiG3udBRUXQOlYXP9b+IC2q2phHeVxj9xGlw34OEQ==",
+    "licenses": [
+      "licenses/188-00-LICENSE.md"
+    ]
+  },
+  {
+    "name": "vscode-uri",
+    "version": "3.2.0",
+    "groups": [
+      "web-dev"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-m2gXo3bn0G1kT9InzMf07fTbqMbGtyckj3bH5ktLO+1Ssv+yiATZ4dhwaQv9UZWxJh6E9IFGnQyjgWVDWVBDrg==",
+    "licenses": [
+      "licenses/189-00-LICENSE.md"
+    ]
+  },
+  {
+    "name": "vue",
+    "version": "3.5.44",
+    "groups": [
+      "web-runtime"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-dvvmaOCG7lAMkJTPqPwWeGMsPS6DIsFsfZDUgBp9V6mHf9b3+/wyVwYR4Es+WV6uJC0FKRxp81Obcq0ZwUcGFQ==",
+    "licenses": [
+      "licenses/190-00-LICENSE"
+    ]
+  },
+  {
+    "name": "vue-tsc",
+    "version": "3.3.13",
+    "groups": [
+      "web-dev"
+    ],
+    "declared_license": "MIT",
+    "integrity": "sha512-jE4/bXdOMSHVxEGgQCqNllJy+9N3Gx6tfSAsg0yhFK/MAN6eXqISihupnDEKSCt12VVnjN2gI3AqLYcqoh5x/A==",
+    "licenses": [
+      "licenses/191-00-LICENSE"
+    ]
+  }
+]

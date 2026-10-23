@@ -1,0 +1,10 @@
+{
+  "control_url": "https://portal.example.com",
+  "node_id": "REPLACE",
+  "credential": "REPLACE",
+  "verify_key": "REPLACE",
+  "frp_path": "/opt/frp-upstream/frps",
+  "tls_cert": "/etc/frp-portal/node/fullchain.pem",
+  "tls_key": "/etc/frp-portal/node/privkey.pem",
+  "state_dir": "/var/lib/frp-portal/node"
+}
