@@ -145,4 +145,3 @@ finally:
   except Exception:pass
   log.close()
  (work/'results.json').write_text(json.dumps(results,ensure_ascii=False,indent=2),encoding='utf-8')
-
