@@ -15,12 +15,14 @@ from pathlib import Path
 import platform
 import re
 import secrets
+import signal
 import shutil
 import socket
 import ssl
 import struct
 import subprocess
 import sys
+import tempfile
 import time
 import urllib.error
 import urllib.parse
@@ -31,7 +33,7 @@ if os.name=='posix':
     import grp
     import pwd
 
-VERSION = '0.1.1'
+VERSION = '0.1.2'
 CONFIG = Path('/etc/frp-portal')
 ROOT = Path('/opt/frp-portal/oneclick')
 STATE = CONFIG / 'oneclick.json'
@@ -70,14 +72,25 @@ def write_json(path,data,mode=0o600,owner=None):
     atomic(path,json.dumps(data,ensure_ascii=False,indent=2)+'\n',mode,owner)
 
 
-def run(*args,stdin=None,env=None,sensitive=False):
+def run(*args,stdin=None,env=None,sensitive=False,timeout=300):
     print('执行：'+str(args[0])+(' （安全初始化）' if sensitive else ' '+' '.join(str(x) for x in args[1:])),flush=True)
-    try:result=subprocess.run([str(x) for x in args],input=stdin,text=True,encoding='utf-8',capture_output=True,env=env,timeout=300)
-    except subprocess.TimeoutExpired:raise RuntimeError(f'{args[0]}执行超过300秒，请检查网络、软件源或服务状态') from None
-    if result.returncode:
-        detail='（含敏感信息的命令输出已隐藏）' if sensitive else result.stderr[-3000:]
-        raise RuntimeError(f'{args[0]} 执行失败: {detail}')
-    return result.stdout
+    # Package post-install hooks may spawn descendants holding output descriptors.
+    # Anonymous files avoid PIPE EOF hangs; a separate process group bounds timeouts.
+    with tempfile.TemporaryFile() as output,tempfile.TemporaryFile() as errors:
+        process=subprocess.Popen([str(x) for x in args],stdin=subprocess.PIPE if stdin is not None else subprocess.DEVNULL,stdout=output,stderr=errors,env=env,start_new_session=os.name=='posix')
+        timed_out=False
+        try:process.communicate(None if stdin is None else stdin.encode(),timeout=timeout)
+        except subprocess.TimeoutExpired:
+            timed_out=True
+            if os.name=='posix':
+                with contextlib.suppress(ProcessLookupError):os.killpg(process.pid,signal.SIGKILL)
+            else:process.kill()
+            process.wait(timeout=5)
+        output.seek(0);stdout=output.read().decode('utf-8',errors='replace');errors.seek(0);stderr=errors.read().decode('utf-8',errors='replace')
+    if timed_out or process.returncode:
+        detail='（含敏感信息的命令输出已隐藏）' if sensitive else (stdout+'\n'+stderr)[-4000:]
+        raise RuntimeError(f'{args[0]} '+(f'超过{timeout}秒' if timed_out else '执行失败')+': '+detail)
+    return stdout
 
 
 def totp(secret):
@@ -171,6 +184,8 @@ class Installer:
         if not os_supported(release):raise RuntimeError('自动安装仅支持Debian12、Ubuntu22.04/24.04；其他系统请手动部署')
         if platform.machine().lower() not in ('x86_64','aarch64','arm64'):raise RuntimeError('仅支持amd64/arm64')
         if not Path('/run/systemd/system').is_dir():raise RuntimeError('需要systemd宿主；普通容器请使用Compose方案')
+        if not self.state and (self.control.exists() or self.node.exists() or any(Path('/etc/systemd/system/frp-portal-'+mode+'.service').exists() for mode in ('serve','node'))):
+            raise RuntimeError('检测到非本一键安装器管理的平台配置/服务，拒绝接管；请按迁移手册处理')
         if not self.a.local_test:
             socket.getaddrinfo(self.a.domain,443); socket.getaddrinfo(self.a.node_domain,17100)
         if self.state and any(self.state.get(k)!=v for k,v in {'public_url':self.public_url,'node_domain':self.a.node_domain,'control_port':self.a.control_port,'postgres_port':self.a.postgres_port,'email':self.a.email}.items()):
@@ -185,7 +200,7 @@ class Installer:
 
     def dependencies(self):
         print('安装系统依赖：PostgreSQL、Caddy、OpenSSL、CA证书…',flush=True)
-        env=os.environ.copy(); env['DEBIAN_FRONTEND']='noninteractive'
+        env=os.environ.copy(); env['DEBIAN_FRONTEND']='noninteractive';env['NEEDRESTART_MODE']='l'
         run('apt-get','update',env=env)
         # Ubuntu 22.04's default sources may not provide Caddy. Use its documented
         # official stable repository, with a pinned signing-key download.

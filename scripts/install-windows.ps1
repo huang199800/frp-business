@@ -17,7 +17,7 @@ $configPath=(Resolve-Path -LiteralPath $Config).Path
 if($LASTEXITCODE -ne 0){throw '签名或文件校验失败'}
 if(-not (Get-Content -LiteralPath (Join-Path $sourcePath 'SHA256SUMS') | Where-Object {$_ -match '^[a-fA-F0-9]{64}\s+portal\.exe$'})){throw 'portal.exe 未列入签名清单'}
 $versionOutput=& (Join-Path $sourcePath 'portal.exe') version
-if($LASTEXITCODE -ne 0 -or $versionOutput -notmatch '^portal 0\.1\.1; frp 0\.71\.1$'){throw '安装包与当前安装脚本版本不兼容；请使用该版本配套脚本'}
+if($LASTEXITCODE -ne 0 -or $versionOutput -notmatch '^portal 0\.1\.2; frp 0\.71\.1$'){throw '安装包与当前安装脚本版本不兼容；请使用该版本配套脚本'}
 $root=Join-Path $env:ProgramData "FRPPortal-$Mode"
 $release=Join-Path $root ('releases\'+(Get-Date -Format 'yyyyMMddHHmmssfff'))
 $state=Join-Path $root 'state';$logs=Join-Path $root 'logs';$serviceName="FRPPortal-$Mode"

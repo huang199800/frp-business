@@ -1,5 +1,6 @@
 import importlib.util
 import os
+import sys
 from pathlib import Path
 import argparse
 import tempfile
@@ -45,6 +46,14 @@ class InstallerTests(unittest.TestCase):
     def test_totp_reference_vector(self):
         with patch.object(installer.time,'time',return_value=59):
             self.assertEqual(installer.totp('GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ'),'287082')
+
+    def test_external_command_timeout_is_bounded(self):
+        with self.assertRaisesRegex(RuntimeError,'超过'):
+            installer.run(sys.executable,'-c','import time; time.sleep(5)',timeout=0.1)
+
+    def test_background_descendant_cannot_hold_command_output_pipe(self):
+        result=installer.run(sys.executable,'-c','import subprocess,sys; subprocess.Popen([sys.executable,"-c","import time;time.sleep(2)"]);print("done")',timeout=1)
+        self.assertIn('done',result)
 
 
 if __name__=='__main__':unittest.main()
