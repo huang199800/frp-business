@@ -6,6 +6,9 @@ on:
  workflow_dispatch:
 permissions:
  contents: read
+concurrency:
+ group: linux-${{ github.ref }}
+ cancel-in-progress: true
 jobs:
  prepare:
   runs-on: ubuntu-24.04
@@ -79,9 +82,9 @@ jobs:
       printf '%s\n' "CI-$(openssl rand -hex 20)" > work/admin-password
       sudo chown root:root work/admin-password
       sudo chmod 600 work/admin-password
-      sudo python3 scripts/oneclick.py --bundle "$PWD/work/bundle" --local-test --email ci@example.invalid --admin-password-file "$PWD/work/admin-password" > work/install-private.log 2>&1 || { sed -E 's/[A-Z2-7]{32}/[REDACTED]/g; s#otpauth://[^ ]*#[REDACTED]#g' work/install-private.log; exit 1; }
+      sudo python3 scripts/oneclick.py --bundle "$PWD/work/bundle" --local-test --email ci@example.invalid --admin-password-file "$PWD/work/admin-password" 2>&1 | sed -u -E 's/[A-Z2-7]{32}/[REDACTED]/g; s#otpauth://[^ ]*#[REDACTED]#g'
       sudo curl --fail --cacert /var/lib/caddy/.local/share/caddy/pki/authorities/local/root.crt https://localhost:8443/healthz
-      sudo python3 scripts/oneclick.py --bundle "$PWD/work/bundle" --local-test --email ci@example.invalid > work/reinstall-private.log 2>&1
+      sudo python3 scripts/oneclick.py --bundle "$PWD/work/bundle" --local-test --email ci@example.invalid 2>&1 | sed -u -E 's/[A-Z2-7]{32}/[REDACTED]/g; s#otpauth://[^ ]*#[REDACTED]#g'
       sudo systemctl is-active frp-portal-serve frp-portal-node
    - name: PostgreSQL integration and real FRP TCP/UDP E2E
      run: |
