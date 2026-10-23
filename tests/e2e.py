@@ -89,7 +89,7 @@ try:
  plan=api('/api/admin/plans',{'name':'acceptance','node_id':n['node_id'],'max_devices':2,'max_tunnels':4,'tunnel_kibps':64,'price_cents':100},admin_token,True)['id']
  def card(seconds=120):return api('/api/admin/cards',{'name':'e2e','note':'test','plan_id':plan,'seconds':seconds,'count':1,'deadline':(datetime.now(timezone.utc)+timedelta(days=1)).isoformat()},admin_token,True)['codes'][0]
  code=card();request_id=str(uuid.uuid4());r=api('/api/redeem',{'code':code,'request_id':request_id},user_token);retry=api('/api/redeem',{'code':code,'request_id':request_id},user_token);check('response-loss retry grants no duplicate time',r['after_at']==retry['after_at'] and retry['repeated'])
- before=datetime.fromisoformat(r['after_at']);r2=api('/api/redeem',{'code':card(60),'request_id':str(uuid.uuid4())},user_token);check('active same-plan renewal',datetime.fromisoformat(r2['after_at'])==before+timedelta(seconds=60))
+ before=datetime.fromisoformat(r['after_at'].replace('Z','+00:00'));r2=api('/api/redeem',{'code':card(60),'request_id':str(uuid.uuid4())},user_token);check('active same-plan renewal',datetime.fromisoformat(r2['after_at'].replace('Z','+00:00'))==before+timedelta(seconds=60))
  run([binary,'dev-cert','--dir',str(work),'--host','localhost'])
  node_config={'control_url':url,'dev_http':True,'node_id':n['node_id'],'credential':n['credential'],'verify_key':n['verify_key'],'frp_path':str(frp/('frps'+suffix)),'tls_cert':str(work/'node.crt'),'tls_key':str(work/'node.key'),'state_dir':str(work/'node-state')}
  node_path=work/'node.json';node_path.write_text(json.dumps(node_config));node=start('node',[binary,'node','--config',str(node_path)])
@@ -121,7 +121,7 @@ try:
  except RuntimeError as e:check('user cannot access admin','HTTP 403' in str(e))
  # Force expiration through an audited adjustment; retain raw frpc and an active stream.
  held=socket.create_connection(('127.0.0.1',t['remote_port']),timeout=1);held.sendall(b'ok');check('established TCP stream before expiry',held.recv(2)==b'ok');held.settimeout(.5)
- entitlement=api('/api/me',token=user_token)['entitlements'][0];expiry=datetime.fromisoformat(entitlement['expires_at']);delta=int((expiry-datetime.now(timezone.utc)).total_seconds())
+ entitlement=api('/api/me',token=user_token)['entitlements'][0];expiry=datetime.fromisoformat(entitlement['expires_at'].replace('Z','+00:00'));delta=int((expiry-datetime.now(timezone.utc)).total_seconds())
  api(f'/api/admin/users/{user_id}/adjust',{'seconds':-delta+3,'reason':'e2e expiration verification'},admin_token,True)
  wait(lambda:closed(t['remote_port']),18);check('expiry stops new TCP connections');wait(lambda:stream_closed(held),3);held.close();check('expiry closes existing TCP stream')
  try:udp_echo(u['remote_port']);raise AssertionError('UDP still forwarding')
@@ -145,3 +145,4 @@ finally:
   except Exception:pass
   log.close()
  (work/'results.json').write_text(json.dumps(results,ensure_ascii=False,indent=2),encoding='utf-8')
+
