@@ -4,6 +4,9 @@ on:
   branches: [main]
  pull_request:
  workflow_dispatch:
+defaults:
+ run:
+  shell: bash
 permissions:
  contents: read
 concurrency:
@@ -21,7 +24,7 @@ jobs:
    - name: Materialize uploaded source archive on first import
      id: source
      env:
-      SOURCE_SHA256: 029d0a6595e1b5e349619099437dedd1ce7011461a0618d5f754070aecff5a2e
+      SOURCE_SHA256: 04261b68624f3388f4c4b5b79a0c9793455e2d9d57804d0b70b1df5eaa1db31d
      run: |
       if [ ! -f go.mod ] || [ "$(cat .source-import-sha 2>/dev/null || true)" != "$SOURCE_SHA256" ]; then
        echo "$SOURCE_SHA256  frp-business-source-0.1.2.zip" | sha256sum --check --strict
