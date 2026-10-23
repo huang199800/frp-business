@@ -21,20 +21,21 @@ jobs:
    - name: Materialize uploaded source archive on first import
      id: source
      env:
-      SOURCE_SHA256: b13a4d71fc8e845b9f16a261b31b66c4a1acf41fed0ed9c835a8db9be674740b
+      SOURCE_SHA256: 029d0a6595e1b5e349619099437dedd1ce7011461a0618d5f754070aecff5a2e
      run: |
-      if [ ! -f go.mod ]; then
-       echo "$SOURCE_SHA256  frp-business-source.zip" | sha256sum --check --strict
+      if [ ! -f go.mod ] || [ "$(cat .source-import-sha 2>/dev/null || true)" != "$SOURCE_SHA256" ]; then
+       echo "$SOURCE_SHA256  frp-business-source-0.1.2.zip" | sha256sum --check --strict
        python3 - <<'PY'
       import pathlib,zipfile
       root=pathlib.Path.cwd()
-      with zipfile.ZipFile('frp-business-source.zip') as z:
+      with zipfile.ZipFile('frp-business-source-0.1.2.zip') as z:
        for item in z.infolist():
         p=(root/item.filename).resolve()
         if not p.is_relative_to(root) or '.git' in pathlib.PurePosixPath(item.filename).parts or item.filename.startswith('.github/'):
          raise SystemExit('Unsafe source archive')
        z.extractall(root)
       PY
+       printf '%s\n' "$SOURCE_SHA256" > .source-import-sha
        git config user.name 'github-actions[bot]'
        git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
        git add .
@@ -86,6 +87,10 @@ jobs:
       sudo curl --fail --cacert /var/lib/caddy/.local/share/caddy/pki/authorities/local/root.crt https://localhost:8443/healthz
       sudo python3 scripts/oneclick.py --bundle "$PWD/work/bundle" --local-test --email ci@example.invalid 2>&1 | sed -u -E 's/[A-Z2-7]{32}/[REDACTED]/g; s#otpauth://[^ ]*#[REDACTED]#g'
       sudo systemctl is-active frp-portal-serve frp-portal-node
+   - name: Verify the public signed one-command download and install entry
+     run: |
+      sudo bash ./install.sh --local-test --email ci@example.invalid 2>&1 | sed -u -E 's/[A-Z2-7]{32}/[REDACTED]/g; s#otpauth://[^ ]*#[REDACTED]#g'
+      sudo curl --fail --cacert /var/lib/caddy/.local/share/caddy/pki/authorities/local/root.crt https://localhost:8443/healthz
    - name: PostgreSQL integration and real FRP TCP/UDP E2E
      run: |
       sudo -u postgres psql -v ON_ERROR_STOP=1 -c "CREATE ROLE ci_portal LOGIN PASSWORD 'isolated-ci-test-password';"
