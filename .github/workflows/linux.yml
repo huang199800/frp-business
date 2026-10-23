@@ -24,7 +24,7 @@ jobs:
    - name: Materialize uploaded source archive on first import
      id: source
      env:
-      SOURCE_SHA256: c9767193cfc6aa86c25e489012035e1c074b64953014c0972e7b62ec749b2760
+      SOURCE_SHA256: cb6e47d71d65e14a8af78e02158260da9c6ef25f5dc2d5f3bc6a27023031aa5e
      run: |
       if [ ! -f go.mod ] || [ "$(cat .source-import-sha 2>/dev/null || true)" != "$SOURCE_SHA256" ]; then
        echo "$SOURCE_SHA256  frp-business-source-0.1.4.zip" | sha256sum --check --strict
