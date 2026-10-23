@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
-VERSION=0.1.2
-BASE_URL=https://raw.githubusercontent.com/huang199800/frp-business/main/releases/v0.1.2
+RELEASE_VERSION=0.1.3
+BASE_URL=https://raw.githubusercontent.com/huang199800/frp-business/main/releases/v0.1.3
 PUBLIC_KEY='glC7y9BwjYjMSUa/L4DDCBB2mpo2sH9dRgKBdt0Akk0='
 LOCAL_BUNDLE=''
 ARGS=()
@@ -10,7 +10,7 @@ while (($#)); do
   --base-url) [[ $# -ge 2 ]] || exit 2; BASE_URL=$2; shift 2;;
   --bundle) [[ $# -ge 2 ]] || exit 2; LOCAL_BUNDLE=$2; shift 2;;
   --help|-h) cat <<'EOF'
-FRP Portal 0.1.2 Linux 一键部署
+FRP Portal 0.1.3 Linux 一键部署
 用法：sudo bash install.sh --domain portal.example.com --node-domain node.example.com --email owner@example.com
 可选：--control-port 8080 --postgres-port 5432 --without-node --check
 离线：--bundle /path/to/extracted/signed/bundle
@@ -53,7 +53,7 @@ p.joinpath('release-public.der').write_bytes(der)
 p.joinpath('signature.bin').write_bytes(base64.b64decode(p.joinpath('SHA256SUMS.sig').read_text().strip(),validate=True))
 PY
 openssl pkeyutl -verify -pubin -keyform DER -inkey "$TMP/release-public.der" -rawin -in "$TMP/SHA256SUMS" -sigfile "$TMP/signature.bin"
-NAME=frp-portal-${VERSION}-linux-${ARCH}.tar.gz
+NAME=frp-portal-${RELEASE_VERSION}-linux-${ARCH}.tar.gz
 if [[ -n $LOCAL_BUNDLE ]]; then
  cp "$LOCAL_BUNDLE/$NAME" "$TMP/$NAME"
 else
