@@ -1,0 +1,104 @@
+name: Linux build, FRP E2E and one-click deployment
+on:
+ push:
+  branches: [main]
+ pull_request:
+ workflow_dispatch:
+permissions:
+ contents: read
+jobs:
+ prepare:
+  runs-on: ubuntu-24.04
+  permissions:
+   contents: write
+  outputs:
+   sha: ${{ steps.source.outputs.sha }}
+  steps:
+   - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+   - name: Materialize uploaded source archive on first import
+     id: source
+     env:
+      SOURCE_SHA256: b13a4d71fc8e845b9f16a261b31b66c4a1acf41fed0ed9c835a8db9be674740b
+     run: |
+      if [ ! -f go.mod ]; then
+       echo "$SOURCE_SHA256  frp-business-source.zip" | sha256sum --check --strict
+       python3 - <<'PY'
+      import pathlib,zipfile
+      root=pathlib.Path.cwd()
+      with zipfile.ZipFile('frp-business-source.zip') as z:
+       for item in z.infolist():
+        p=(root/item.filename).resolve()
+        if not p.is_relative_to(root) or '.git' in pathlib.PurePosixPath(item.filename).parts or item.filename.startswith('.github/'):
+         raise SystemExit('Unsafe source archive')
+       z.extractall(root)
+      PY
+       git config user.name 'github-actions[bot]'
+       git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+       git add .
+       git commit -m 'Import full FRP source and Linux one-click installer'
+       git push origin HEAD:main
+      fi
+      echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+ linux:
+  needs: prepare
+  strategy:
+   fail-fast: false
+   matrix:
+    os: [ubuntu-22.04, ubuntu-24.04]
+  runs-on: ${{ matrix.os }}
+  timeout-minutes: 25
+  steps:
+   - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+     with:
+      ref: ${{ needs.prepare.outputs.sha }}
+   - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
+     with:
+      go-version: 1.27.3
+   - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+     with:
+      node-version: 22.22.0
+      cache: npm
+      cache-dependency-path: web/package-lock.json
+   - name: Build Vue and native Linux executable
+     run: |
+      cd web
+      npm ci --ignore-scripts
+      npm run build
+      cd ..
+      mkdir -p work/bundle work/results
+      CGO_ENABLED=0 go build -trimpath -o work/bundle/portal ./cmd/portal
+      python3 scripts/fetch-frp.py --os linux --arch amd64 --out work/upstream
+      cp work/upstream/frp_0.71.1_linux_amd64/frpc work/upstream/frp_0.71.1_linux_amd64/frps work/bundle/
+      cp scripts/oneclick.py work/bundle/
+      cp -a third_party work/bundle/
+      chmod +x work/bundle/portal work/bundle/frpc work/bundle/frps
+   - name: Installer security and rollback tests
+     run: python3 -m unittest discover -s tests -p test_oneclick.py -v
+   - name: Real native one-click install, HTTPS and repeat install
+     run: |
+      printf '%s\n' "CI-$(openssl rand -hex 20)" > work/admin-password
+      sudo chown root:root work/admin-password
+      sudo chmod 600 work/admin-password
+      sudo python3 scripts/oneclick.py --bundle "$PWD/work/bundle" --local-test --email ci@example.invalid --admin-password-file "$PWD/work/admin-password" > work/install-private.log 2>&1 || { sed -E 's/[A-Z2-7]{32}/[REDACTED]/g; s#otpauth://[^ ]*#[REDACTED]#g' work/install-private.log; exit 1; }
+      sudo curl --fail --cacert /var/lib/caddy/.local/share/caddy/pki/authorities/local/root.crt https://localhost:8443/healthz
+      sudo python3 scripts/oneclick.py --bundle "$PWD/work/bundle" --local-test --email ci@example.invalid > work/reinstall-private.log 2>&1
+      sudo systemctl is-active frp-portal-serve frp-portal-node
+   - name: PostgreSQL integration and real FRP TCP/UDP E2E
+     run: |
+      sudo -u postgres psql -v ON_ERROR_STOP=1 -c "CREATE ROLE ci_portal LOGIN PASSWORD 'isolated-ci-test-password';"
+      sudo -u postgres createdb -O ci_portal portal_test
+      sudo -u postgres createdb -O ci_portal portal_e2e
+      FRP_TEST_DATABASE_URL='postgres://ci_portal:isolated-ci-test-password@127.0.0.1:5432/portal_test?sslmode=disable' go test ./... -count=1 -v | tee work/results/go.txt
+      go vet ./...
+      python3 tests/e2e.py --binary work/bundle/portal --frp-dir work/bundle --work-dir work/e2e --database-url 'postgres://ci_portal:isolated-ci-test-password@127.0.0.1:5432/portal_e2e?sslmode=disable' | tee work/results/e2e.txt
+   - name: Redacted diagnostics on failure
+     if: failure()
+     run: |
+      sudo journalctl -u frp-portal-serve -u frp-portal-node -u caddy --no-pager -n 100 || true
+      cat work/e2e/node.log 2>/dev/null || true
+   - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+     if: always()
+     with:
+      name: linux-results-${{ matrix.os }}
+      path: work/results/
+      retention-days: 14
