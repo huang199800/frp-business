@@ -24,14 +24,14 @@ jobs:
    - name: Materialize uploaded source archive on first import
      id: source
      env:
-      SOURCE_SHA256: 04261b68624f3388f4c4b5b79a0c9793455e2d9d57804d0b70b1df5eaa1db31d
+      SOURCE_SHA256: 78bb4e3fd307f62fcf55576ded9badf9e4ee2e49028187958f5f7fc6ba11ad54
      run: |
       if [ ! -f go.mod ] || [ "$(cat .source-import-sha 2>/dev/null || true)" != "$SOURCE_SHA256" ]; then
-       echo "$SOURCE_SHA256  frp-business-source-0.1.2.zip" | sha256sum --check --strict
+       echo "$SOURCE_SHA256  frp-business-source-0.1.3.zip" | sha256sum --check --strict
        python3 - <<'PY'
       import pathlib,zipfile
       root=pathlib.Path.cwd()
-      with zipfile.ZipFile('frp-business-source-0.1.2.zip') as z:
+      with zipfile.ZipFile('frp-business-source-0.1.3.zip') as z:
        for item in z.infolist():
         p=(root/item.filename).resolve()
         if not p.is_relative_to(root) or '.git' in pathlib.PurePosixPath(item.filename).parts or item.filename.startswith('.github/'):
@@ -92,7 +92,8 @@ jobs:
       sudo systemctl is-active frp-portal-serve frp-portal-node
    - name: Verify the public signed one-command download and install entry
      run: |
-      sudo bash ./install.sh --local-test --email ci@example.invalid 2>&1 | sed -u -E 's/[A-Z2-7]{32}/[REDACTED]/g; s#otpauth://[^ ]*#[REDACTED]#g'
+      curl --fail --location https://raw.githubusercontent.com/huang199800/frp-business/main/install.sh -o work/public-install.sh
+      sudo bash work/public-install.sh --local-test --email ci@example.invalid 2>&1 | sed -u -E 's/[A-Z2-7]{32}/[REDACTED]/g; s#otpauth://[^ ]*#[REDACTED]#g'
       sudo curl --fail --cacert /var/lib/caddy/.local/share/caddy/pki/authorities/local/root.crt https://localhost:8443/healthz
    - name: PostgreSQL integration and real FRP TCP/UDP E2E
      run: |
