@@ -24,14 +24,14 @@ jobs:
    - name: Materialize uploaded source archive on first import
      id: source
      env:
-      SOURCE_SHA256: 78bb4e3fd307f62fcf55576ded9badf9e4ee2e49028187958f5f7fc6ba11ad54
+      SOURCE_SHA256: c9767193cfc6aa86c25e489012035e1c074b64953014c0972e7b62ec749b2760
      run: |
       if [ ! -f go.mod ] || [ "$(cat .source-import-sha 2>/dev/null || true)" != "$SOURCE_SHA256" ]; then
-       echo "$SOURCE_SHA256  frp-business-source-0.1.3.zip" | sha256sum --check --strict
+       echo "$SOURCE_SHA256  frp-business-source-0.1.4.zip" | sha256sum --check --strict
        python3 - <<'PY'
       import pathlib,zipfile
       root=pathlib.Path.cwd()
-      with zipfile.ZipFile('frp-business-source-0.1.3.zip') as z:
+      with zipfile.ZipFile('frp-business-source-0.1.4.zip') as z:
        for item in z.infolist():
         p=(root/item.filename).resolve()
         if not p.is_relative_to(root) or '.git' in pathlib.PurePosixPath(item.filename).parts or item.filename.startswith('.github/'):
@@ -114,3 +114,4 @@ jobs:
       name: linux-results-${{ matrix.os }}
       path: work/results/
       retention-days: 14
+
