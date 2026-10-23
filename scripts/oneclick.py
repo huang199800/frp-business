@@ -71,7 +71,9 @@ def write_json(path,data,mode=0o600,owner=None):
 
 
 def run(*args,stdin=None,env=None,sensitive=False):
-    result=subprocess.run([str(x) for x in args],input=stdin,text=True,encoding='utf-8',capture_output=True,env=env)
+    print('执行：'+str(args[0])+(' （安全初始化）' if sensitive else ' '+' '.join(str(x) for x in args[1:])),flush=True)
+    try:result=subprocess.run([str(x) for x in args],input=stdin,text=True,encoding='utf-8',capture_output=True,env=env,timeout=300)
+    except subprocess.TimeoutExpired:raise RuntimeError(f'{args[0]}执行超过300秒，请检查网络、软件源或服务状态') from None
     if result.returncode:
         detail='（含敏感信息的命令输出已隐藏）' if sensitive else result.stderr[-3000:]
         raise RuntimeError(f'{args[0]} 执行失败: {detail}')
@@ -185,6 +187,18 @@ class Installer:
         print('安装系统依赖：PostgreSQL、Caddy、OpenSSL、CA证书…',flush=True)
         env=os.environ.copy(); env['DEBIAN_FRONTEND']='noninteractive'
         run('apt-get','update',env=env)
+        # Ubuntu 22.04's default sources may not provide Caddy. Use its documented
+        # official stable repository, with a pinned signing-key download.
+        if subprocess.run(['apt-cache','show','caddy'],capture_output=True).returncode:
+            run('apt-get','install','-y','gnupg','ca-certificates','curl','debian-keyring','debian-archive-keyring','apt-transport-https',env=env)
+            with urllib.request.urlopen('https://dl.cloudsmith.io/public/caddy/stable/gpg.key',timeout=30) as response:key=response.read(65536)
+            if hashlib.sha256(key).hexdigest()!='783dfee04b19e851a928cd87b34710213ebbe7628f98d9f34595ab83be578c00':
+                raise RuntimeError('Caddy仓库签名密钥与已核实版本不符，请维护者重新核查，拒绝自动放行')
+            result=subprocess.run(['gpg','--batch','--dearmor'],input=key,capture_output=True)
+            if result.returncode:raise RuntimeError('Caddy签名密钥格式无效')
+            atomic('/usr/share/keyrings/caddy-stable-archive-keyring.gpg',result.stdout,0o644)
+            atomic('/etc/apt/sources.list.d/caddy-stable.list','deb [signed-by=/usr/share/keyrings/caddy-stable-archive-keyring.gpg] https://dl.cloudsmith.io/public/caddy/stable/deb/debian any-version main\n',0o644)
+            run('apt-get','update',env=env)
         run('apt-get','install','-y','postgresql','postgresql-client','caddy','openssl','ca-certificates','curl',env=env)
         try:pwd.getpwnam('frpportal')
         except KeyError:run('useradd','--system','--home-dir','/var/lib/frp-portal','--shell','/usr/sbin/nologin','frpportal')
@@ -274,7 +288,7 @@ class Installer:
         pki=CONFIG/'pki';pki.mkdir(mode=0o700,exist_ok=True);os.chmod(pki,0o700)
         ca_key,ca_crt=pki/'node-ca.key',pki/'node-ca.pem'
         if not ca_key.exists() and not ca_crt.exists():
-            run('openssl','req','-x509','-newkey','rsa:3072','-nodes','-sha256','-days','3650','-subj','/CN=FRP Portal Node CA','-keyout',ca_key,'-out',ca_crt,sensitive=True)
+            run('openssl','req','-x509','-newkey','rsa:3072','-nodes','-sha256','-days','3650','-subj','/CN=FRP Portal Node CA','-addext','basicConstraints=critical,CA:TRUE','-addext','keyUsage=critical,keyCertSign,cRLSign','-keyout',ca_key,'-out',ca_crt,sensitive=True)
             os.chmod(ca_key,0o600)
         if not ca_key.exists() or not ca_crt.exists():raise RuntimeError('节点CA状态不完整，拒绝自动替换信任根')
         key,crt=CONFIG/'node/node.key',CONFIG/'node/node.crt'
