@@ -24,14 +24,14 @@ jobs:
    - name: Materialize uploaded source archive on first import
      id: source
      env:
-      SOURCE_SHA256: cb6e47d71d65e14a8af78e02158260da9c6ef25f5dc2d5f3bc6a27023031aa5e
+      SOURCE_SHA256: d684e50fefb25aff0c696b0fabdb36c541d970624ccfa21d43c3e8aef72f491f
      run: |
       if [ ! -f go.mod ] || [ "$(cat .source-import-sha 2>/dev/null || true)" != "$SOURCE_SHA256" ]; then
-       echo "$SOURCE_SHA256  frp-business-source-0.1.4.zip" | sha256sum --check --strict
+       echo "$SOURCE_SHA256  frp-business-source-0.2.0.zip" | sha256sum --check --strict
        python3 - <<'PY'
       import pathlib,zipfile
       root=pathlib.Path.cwd()
-      with zipfile.ZipFile('frp-business-source-0.1.4.zip') as z:
+      with zipfile.ZipFile('frp-business-source-0.2.0.zip') as z:
        for item in z.infolist():
         p=(root/item.filename).resolve()
         if not p.is_relative_to(root) or '.git' in pathlib.PurePosixPath(item.filename).parts or item.filename.startswith('.github/'):
@@ -53,7 +53,7 @@ jobs:
    matrix:
     os: [ubuntu-22.04, ubuntu-24.04]
   runs-on: ${{ matrix.os }}
-  timeout-minutes: 25
+  timeout-minutes: 35
   steps:
    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
      with:
@@ -76,24 +76,30 @@ jobs:
       CGO_ENABLED=0 go build -trimpath -o work/bundle/portal ./cmd/portal
       python3 scripts/fetch-frp.py --os linux --arch amd64 --out work/upstream
       cp work/upstream/frp_0.71.1_linux_amd64/frpc work/upstream/frp_0.71.1_linux_amd64/frps work/bundle/
-      cp scripts/oneclick.py work/bundle/
+      cp scripts/oneclick.py scripts/node-oneclick.py work/bundle/
       cp -a third_party work/bundle/
       chmod +x work/bundle/portal work/bundle/frpc work/bundle/frps
    - name: Installer security and rollback tests
-     run: python3 -m unittest discover -s tests -p test_oneclick.py -v
-   - name: Real native one-click install, HTTPS and repeat install
+     run: |
+      python3 -m unittest discover -s tests -p test_oneclick.py -v
+      python3 -m py_compile scripts/node-oneclick.py scripts/package-clients.py
+   - name: Upgrade native 0.1.4 install, HTTPS and repeat install
      run: |
       printf '%s\n' "CI-$(openssl rand -hex 20)" > work/admin-password
       sudo chown root:root work/admin-password
       sudo chmod 600 work/admin-password
-      sudo python3 scripts/oneclick.py --bundle "$PWD/work/bundle" --local-test --email ci@example.invalid --admin-password-file "$PWD/work/admin-password" 2>&1 | sed -u -E 's/[A-Z2-7]{32}/[REDACTED]/g; s#otpauth://[^ ]*#[REDACTED]#g'
+      curl --fail --location https://raw.githubusercontent.com/huang199800/frp-business/ce9d89e3348c43dc3bd3da66be038af9e0ed5dfa/install.sh -o work/old-install.sh
+      sudo bash work/old-install.sh --local-test --email ci@example.invalid --admin-password-file "$PWD/work/admin-password" 2>&1 | sed -u -E 's/[A-Z2-7]{32}/[REDACTED]/g; s#otpauth://[^ ]*#[REDACTED]#g'
+      sudo bash install.sh --upgrade 2>&1 | sed -u -E 's/[A-Z2-7]{32}/[REDACTED]/g; s#otpauth://[^ ]*#[REDACTED]#g'
+      test "$(sudo /opt/frp-portal/oneclick/current/portal version)" = 'portal 0.2.0; frp 0.71.1'
+      sudo find /var/backups/frp-portal -name portal.dump -print -quit | grep -q .
       sudo curl --fail --cacert /var/lib/caddy/.local/share/caddy/pki/authorities/local/root.crt https://localhost:8443/healthz
       sudo python3 scripts/oneclick.py --bundle "$PWD/work/bundle" --local-test --email ci@example.invalid 2>&1 | sed -u -E 's/[A-Z2-7]{32}/[REDACTED]/g; s#otpauth://[^ ]*#[REDACTED]#g'
       sudo systemctl is-active frp-portal-serve frp-portal-node
    - name: Verify the public signed one-command download and install entry
      run: |
       curl --fail --location https://raw.githubusercontent.com/huang199800/frp-business/main/install.sh -o work/public-install.sh
-      sudo bash work/public-install.sh --local-test --email ci@example.invalid 2>&1 | sed -u -E 's/[A-Z2-7]{32}/[REDACTED]/g; s#otpauth://[^ ]*#[REDACTED]#g'
+      sudo bash work/public-install.sh --upgrade 2>&1 | sed -u -E 's/[A-Z2-7]{32}/[REDACTED]/g; s#otpauth://[^ ]*#[REDACTED]#g'
       sudo curl --fail --cacert /var/lib/caddy/.local/share/caddy/pki/authorities/local/root.crt https://localhost:8443/healthz
    - name: PostgreSQL integration and real FRP TCP/UDP E2E
      run: |
