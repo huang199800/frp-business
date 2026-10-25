@@ -1,14 +1,14 @@
-# FRP 商业平台 · 第一阶段 0.1.4
+# FRP 商业平台 · 易用版 0.2.0
 
 ## Linux 一键部署
 
-公开仓库：[huang199800/frp-business](https://github.com/huang199800/frp-business)。在已配置公网入口、两个域名DNS和防火墙的Debian12/Ubuntu22.04或24.04服务器执行（替换域名与邮箱）：
+公开仓库：[huang199800/frp-business](https://github.com/huang199800/frp-business)。在已配置公网入口、两个域名 DNS 和防火墙的 Debian 12/Ubuntu 22.04 或 24.04 服务器执行：
 
 ```bash
-curl -fL https://raw.githubusercontent.com/huang199800/frp-business/main/install.sh -o /tmp/frp-install.sh && sudo bash /tmp/frp-install.sh --domain portal.example.com --node-domain node.example.com --email owner@example.com
+curl -fL https://raw.githubusercontent.com/huang199800/frp-business/main/install.sh -o /tmp/frp-install.sh && sudo bash /tmp/frp-install.sh --domain frpc.hhse.top --node-domain frps.hhse.top --email hzx0851@gmail.com
 ```
 
-安装器验证固定公钥签名及SHA256，自动安装PostgreSQL/Caddy、初始化管理员和本机节点、启用HTTPS和systemd服务。首次输入密码并保存TOTP密钥；不在脚本里预置账号密码。详见[Linux一键部署说明](docs/Linux一键部署.md)。实际自动化验收状态以仓库Actions结果为准。
+安装器验证固定公钥签名及SHA256，自动安装PostgreSQL/Caddy、初始化管理员和本机节点、启用HTTPS和systemd服务。首次输入密码并保存TOTP密钥；不在脚本里预置账号密码。已装服务器运行同一安装脚本加 `--upgrade` 即可升级；新服务器可从控制台生成一键节点命令。详见[新手快速上手](docs/新手快速上手.md)和[Linux一键部署说明](docs/Linux一键部署.md)。实际自动化验收状态以仓库Actions结果为准。
 
 这是实际实现的 TCP/UDP 时长卡闭环交付：Go 控制平台、PostgreSQL、Vue 3 中文用户中心及运营后台、节点租约守护、Windows/Linux CLI Agent。采用官方 **frp 0.71.1** 二进制，无内核补丁。
 
@@ -16,6 +16,7 @@ curl -fL https://raw.githubusercontent.com/huang199800/frp-business/main/install
 
 ## 从这里开始
 
+- [客户端快速上手](docs/客户端快速上手.md)：Windows/Linux 绑定与自动启动。
 - [详细安装与使用手册](docs/安装与使用手册.md)：环境要求、源码/压缩包/服务/Docker 部署、日常操作、备份恢复、升级回滚、卸载与排错。
 - [版本核实与架构](docs/架构与版本核实.md)：上游源码依据、平台矩阵、数据模型、授权边界与阶段计划。
 - [API 文档](docs/API.md)：请求、权限、响应与常见错误。
@@ -68,7 +69,7 @@ python tests/e2e.py --binary dist/windows-amd64/portal.exe --frp-dir ../../work/
 ```text
 cmd/portal/                 CLI、Windows Service 适配、嵌入的前端构建产物
 internal/platform/         PostgreSQL 事务、HTTP API、鉴权、签名租约、节点/Agent
-  schema.sql               幂等数据库迁移 v1
+  schema.sql               幂等数据库迁移 v1 与兼容增量字段
 web/                       Vue 3 + TypeScript 源码与依赖锁
 scripts/                   构建、校验下载、安装、预检、卸载
 deploy/                    Dockerfile、Compose、Caddy HTTPS 示例

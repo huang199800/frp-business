@@ -462,7 +462,7 @@ func grantFingerprint(g Grant) string {
 func ServerConfig(g Grant, c Config, plugin, secret string) string {
 	// Empty allowPorts means unrestricted in FRP, so guards with no tunnels must never start.
 	var b strings.Builder
-	fmt.Fprintf(&b, "bindAddr = \"0.0.0.0\"\nbindPort = %d\nauth.method = \"token\"\nauth.token = %q\nauth.additionalScopes = [\"HeartBeats\", \"NewWorkConns\"]\ntransport.tls.force = true\ntransport.tls.certFile = %q\ntransport.tls.keyFile = %q\nmaxPortsPerClient = %d\nlog.to = %q\nlog.level = \"warn\"\nlog.maxDays = 7\nlog.disablePrintColor = true\nallowPorts = [", g.ControlPort, g.Token, filepath.ToSlash(c.TLSCert), filepath.ToSlash(c.TLSKey), len(g.Tunnels), filepath.ToSlash(filepath.Join(c.StateDir, "frps-"+g.DeviceID+".log")))
+	fmt.Fprintf(&b, "bindAddr = \"0.0.0.0\"\nbindPort = %d\nauth.method = \"token\"\nauth.token = %q\nauth.additionalScopes = [\"HeartBeats\", \"NewWorkConns\"]\ntransport.tls.force = true\ntransport.tls.certFile = %q\ntransport.tls.keyFile = %q\ntransport.tcpMux = true\ntransport.maxPoolCount = 10\nmaxPortsPerClient = %d\nlog.to = %q\nlog.level = \"warn\"\nlog.maxDays = 7\nlog.disablePrintColor = true\nallowPorts = [", g.ControlPort, g.Token, filepath.ToSlash(c.TLSCert), filepath.ToSlash(c.TLSKey), len(g.Tunnels), filepath.ToSlash(filepath.Join(c.StateDir, "frps-"+g.DeviceID+".log")))
 	for i, t := range g.Tunnels {
 		if i > 0 {
 			b.WriteString(",")
@@ -473,12 +473,28 @@ func ServerConfig(g Grant, c Config, plugin, secret string) string {
 	return b.String()
 }
 func ClientConfig(g Grant, host, ca string) string {
+	return ClientConfigWithOptions(g, host, ca, Config{})
+}
+func ClientConfigWithOptions(g Grant, host, ca string, options Config) string {
 	var b strings.Builder
 	fmt.Fprintf(&b, "serverAddr = %q\nserverPort = %d\nauth.method = \"token\"\nauth.token = %q\nauth.additionalScopes = [\"HeartBeats\", \"NewWorkConns\"]\nloginFailExit = false\ntransport.tls.enable = true\ntransport.tls.serverName = %q\n", host, g.ControlPort, g.Token, host)
+	fmt.Fprintf(&b, "transport.protocol = \"tcp\"\ntransport.poolCount = %d\ntransport.tcpMux = %t\n", options.PoolCount, options.TCPMux == nil || *options.TCPMux)
 	if ca != "" {
 		fmt.Fprintf(&b, "transport.tls.trustedCaFile = %q\n", filepath.ToSlash(ca))
 	}
-	b.WriteString("log.to = \"console\"\nlog.level = \"warn\"\nlog.disablePrintColor = true\n")
+	level := options.LogLevel
+	if level == "" {
+		level = "error"
+	}
+	days := options.MaxLogDays
+	if days == 0 {
+		days = 7
+	}
+	logTo := "console"
+	if options.StateDir != "" {
+		logTo = filepath.ToSlash(filepath.Join(options.StateDir, "frpc.log"))
+	}
+	fmt.Fprintf(&b, "log.to = %q\nlog.level = %q\nlog.maxDays = %d\nlog.disablePrintColor = true\n", logTo, level, days)
 	for _, t := range g.Tunnels {
 		fmt.Fprintf(&b, "\n[[proxies]]\nname = %q\ntype = %q\nlocalIP = %q\nlocalPort = %d\nremotePort = %d\n", t.ID, t.Protocol, t.LocalHost, t.LocalPort, t.RemotePort)
 	}
@@ -511,17 +527,17 @@ type DeviceConfig struct {
 	Grant         Grant  `json:"grant"`
 	ConfigVersion string `json:"config_version"`
 	State         string `json:"state"`
+	PublicCA      bool   `json:"public_ca"`
 }
 
 func Agent(ctx context.Context, c Config) error {
 	if e := validateFRP(c.FRPPath, "frpc"); e != nil {
 		return e
 	}
-	if c.CAFile == "" {
-		return errors.New("agent 需要 ca_file，用于验证转发节点证书")
-	}
-	if _, e := os.Stat(c.CAFile); e != nil {
-		return e
+	if c.CAFile != "" {
+		if _, e := os.Stat(c.CAFile); e != nil {
+			return e
+		}
 	}
 	client, e := HTTPClient(c)
 	if e != nil {
@@ -551,7 +567,13 @@ func Agent(ctx context.Context, c Config) error {
 			slog.Warn("device configuration unavailable", "error", e)
 		} else {
 			failures = 0
-			config := ClientConfig(dc.Grant, dc.Host, c.CAFile)
+			ca := c.CAFile
+			if dc.PublicCA {
+				ca = ""
+			} else if ca == "" {
+				return errors.New("此节点使用平台私有 CA，请重新运行 connect 下载信任证书")
+			}
+			config := ClientConfigWithOptions(dc.Grant, dc.Host, ca, c)
 			hash := Digest(config)
 			if process != nil {
 				select {

@@ -20,6 +20,30 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
+func TestManagedClientConfigDefaultsAndPublicCA(t *testing.T) {
+	g := Grant{DeviceID: "device", ControlPort: 17100, Token: "secret", Tunnels: []Tunnel{{ID: "unique-tunnel", Protocol: "tcp", LocalHost: "127.0.0.1", LocalPort: 22, RemotePort: 20100}}}
+	private := ClientConfigWithOptions(g, "frps.hhse.top", "/tmp/private-ca.pem", Config{StateDir: "/tmp/client"})
+	for _, want := range []string{"serverAddr = \"frps.hhse.top\"", "transport.protocol = \"tcp\"", "transport.poolCount = 0", "transport.tcpMux = true", "trustedCaFile = \"/tmp/private-ca.pem\"", "log.level = \"error\"", "log.maxDays = 7", "name = \"unique-tunnel\""} {
+		if !strings.Contains(private, want) {
+			t.Errorf("missing %q from managed config", want)
+		}
+	}
+	public := ClientConfigWithOptions(g, "edge.hhse.top", "", Config{PoolCount: 3, LogLevel: "warn", MaxLogDays: 14})
+	if strings.Contains(public, "trustedCaFile") || !strings.Contains(public, "transport.poolCount = 3") || !strings.Contains(public, "log.level = \"warn\"") {
+		t.Fatal("public-CA client options not applied")
+	}
+}
+func TestNodeHostCannotInjectGeneratedShellCommand(t *testing.T) {
+	for _, host := range []string{"edge.example.com;curl evil", "$(id).example.com", "edge.example.com/path", "edge.example.com:443"} {
+		if validHost(host) {
+			t.Fatalf("accepted unsafe host %q", host)
+		}
+	}
+	if !validHost("edge2.example.com") {
+		t.Fatal("rejected valid node host")
+	}
+}
+
 func TestExpiry(t *testing.T) {
 	now := time.Date(2026, 10, 23, 0, 0, 0, 0, time.UTC)
 	for _, v := range []struct{ old, want time.Time }{{now.Add(time.Hour), now.Add(2 * time.Hour)}, {now.Add(-time.Hour), now.Add(time.Hour)}, {time.Time{}, now.Add(time.Hour)}} {
@@ -322,6 +346,31 @@ func TestMigrationRefusesIncompatibleDowngrade(t *testing.T) {
 	}
 	if e := s.Migrate(ctx); e == nil {
 		t.Fatal("incompatible database accepted")
+	}
+}
+func TestRemoteNodeSetupAuthenticatesAndReportsTLSMode(t *testing.T) {
+	s := testStore(t)
+	id, token := Random(), Random()
+	_, e := s.DB.Exec(context.Background(), "INSERT INTO nodes(id,name,host,token_hash,control_start,control_end,port_start,port_end,tls_public_ca) VALUES($1,'remote','edge.example.com',$2,17100,17199,20100,20199,true)", id, Digest(token))
+	if e != nil {
+		t.Fatal(e)
+	}
+	a := NewAPI(s, Config{PublicURL: "https://portal.test"}, os.DirFS("."))
+	for _, tc := range []struct {
+		token  string
+		status int
+	}{{token, 200}, {Random(), 401}} {
+		r := httptest.NewRequest("POST", "/api/node/setup", strings.NewReader(`{"node_id":"`+id+`"}`))
+		r.Header.Set("Authorization", "Bearer "+tc.token)
+		r.Header.Set("Content-Type", "application/json")
+		w := httptest.NewRecorder()
+		a.ServeHTTP(w, r)
+		if w.Code != tc.status {
+			t.Fatalf("setup status %d, want %d: %s", w.Code, tc.status, w.Body.String())
+		}
+		if tc.status == 200 && !strings.Contains(w.Body.String(), `"tls_public_ca":true`) {
+			t.Fatal("public certificate mode absent")
+		}
 	}
 }
 func TestReleaseTamperingRejected(t *testing.T) {

@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"net/mail"
 	"net/url"
+	"regexp"
 	"strings"
 	"sync"
 	"time"
@@ -58,6 +59,7 @@ func NewAPI(s *Store, c Config, assets fs.FS) *API {
 	a.route("GET /api/redemptions", true, false, a.history)
 	a.route("GET /api/device/config", false, false, a.deviceConfig)
 	a.route("POST /api/node/lease", false, false, a.nodeLease)
+	a.route("POST /api/node/setup", false, false, a.nodeSetup)
 	a.route("POST /api/node/check", false, false, a.nodeCheck)
 	a.route("GET /api/admin/overview", true, true, a.overview)
 	a.route("POST /api/admin/nodes", true, true, a.createNode)
@@ -515,9 +517,29 @@ func (a *API) nodeLease(w http.ResponseWriter, r *http.Request, p *Principal) er
 	JSON(w, 200, out)
 	return nil
 }
+func (a *API) nodeSetup(w http.ResponseWriter, r *http.Request, p *Principal) error {
+	var v struct {
+		NodeID string `json:"node_id"`
+	}
+	if e := decode(r, &v); e != nil {
+		return e
+	}
+	var host, hash string
+	var publicCA, enabled bool
+	e := a.S.DB.QueryRow(r.Context(), "SELECT host,token_hash,tls_public_ca,enabled FROM nodes WHERE id=$1", v.NodeID).Scan(&host, &hash, &publicCA, &enabled)
+	if e != nil || subtle.ConstantTimeCompare([]byte(hash), []byte(Digest(bearer(r)))) != 1 {
+		return APIError{401, "节点身份无效"}
+	}
+	if !enabled || !publicCA {
+		return Bad("节点尚未启用一键公网证书模式，请从控制台重新创建节点")
+	}
+	JSON(w, 200, map[string]any{"host": host, "tls_public_ca": publicCA, "verify_key": a.S.Key.Public().(ed25519.PublicKey)})
+	return nil
+}
 func (a *API) deviceConfig(w http.ResponseWriter, r *http.Request, p *Principal) error {
 	var id, node, host string
-	e := a.S.DB.QueryRow(r.Context(), "SELECT d.id,d.node_id,n.host FROM devices d JOIN nodes n ON n.id=d.node_id WHERE d.token_hash=$1 AND NOT d.revoked", Digest(bearer(r))).Scan(&id, &node, &host)
+	var publicCA bool
+	e := a.S.DB.QueryRow(r.Context(), "SELECT d.id,d.node_id,n.host,n.tls_public_ca FROM devices d JOIN nodes n ON n.id=d.node_id WHERE d.token_hash=$1 AND NOT d.revoked", Digest(bearer(r))).Scan(&id, &node, &host, &publicCA)
 	if e != nil {
 		return APIError{401, "设备凭据失效，请重新绑定"}
 	}
@@ -527,7 +549,7 @@ func (a *API) deviceConfig(w http.ResponseWriter, r *http.Request, p *Principal)
 	}
 	for _, g := range grants {
 		if g.DeviceID == id {
-			JSON(w, 200, map[string]any{"version": 1, "host": host, "grant": g, "config_version": Digest(ClientConfig(g, host, "CA_FILE")), "state": "saved"})
+			JSON(w, 200, map[string]any{"version": 1, "host": host, "grant": g, "public_ca": publicCA, "config_version": Digest(ClientConfig(g, host, "CA_FILE")), "state": "saved"})
 			return nil
 		}
 	}
@@ -536,7 +558,7 @@ func (a *API) deviceConfig(w http.ResponseWriter, r *http.Request, p *Principal)
 func (a *API) overview(w http.ResponseWriter, r *http.Request, p *Principal) error {
 	out := map[string]any{}
 	queries := map[string]string{
-		"nodes":   "SELECT id,name,host,control_start,control_end,port_start,port_end,enabled,last_seen FROM nodes ORDER BY id",
+		"nodes":   "SELECT id,name,host,control_start,control_end,port_start,port_end,tls_public_ca,enabled,last_seen FROM nodes ORDER BY id",
 		"plans":   "SELECT * FROM plans ORDER BY created_at DESC",
 		"batches": "SELECT b.*,count(c.hash) AS card_count,count(r.id) AS redeemed_count,count(*) FILTER(WHERE c.disabled) AS disabled_count FROM batches b JOIN cards c ON c.batch_id=b.id LEFT JOIN redemptions r ON r.card_hash=c.hash GROUP BY b.id ORDER BY b.created_at DESC LIMIT 200",
 		"users":   "SELECT u.id,u.email,u.role,u.disabled,p.name AS plan_name,e.expires_at FROM users u LEFT JOIN entitlements e ON e.user_id=u.id LEFT JOIN plans p ON p.id=e.plan_id ORDER BY u.created_at DESC LIMIT 500",
@@ -562,11 +584,13 @@ func (a *API) createNode(w http.ResponseWriter, r *http.Request, p *Principal) e
 		ControlEnd   int    `json:"control_end"`
 		PortStart    int    `json:"port_start"`
 		PortEnd      int    `json:"port_end"`
+		PublicCA     bool   `json:"tls_public_ca"`
 	}
 	if e := decode(r, &v); e != nil {
 		return e
 	}
-	if v.Name == "" || len(v.Name) > 80 || !validHost(v.Host) || v.ControlStart < 1024 || v.ControlEnd > 65535 || v.ControlEnd < v.ControlStart || v.PortStart < 1024 || v.PortEnd > 65535 || v.PortEnd < v.PortStart || !(v.ControlEnd < v.PortStart || v.PortEnd < v.ControlStart) {
+	v.Host = strings.ToLower(v.Host)
+	if v.Name == "" || len(v.Name) > 80 || !validHost(v.Host) || (v.PublicCA && (net.ParseIP(v.Host) != nil || v.Host == "localhost")) || v.ControlStart < 1024 || v.ControlEnd > 65535 || v.ControlEnd < v.ControlStart || v.PortStart < 1024 || v.PortEnd > 65535 || v.PortEnd < v.PortStart || !(v.ControlEnd < v.PortStart || v.PortEnd < v.ControlStart) {
 		return Bad("节点主机名、端口池或控制端口范围无效；两个范围不能重叠")
 	}
 	id, token := Random(), Random()
@@ -575,7 +599,7 @@ func (a *API) createNode(w http.ResponseWriter, r *http.Request, p *Principal) e
 		return e
 	}
 	defer tx.Rollback(r.Context())
-	_, e = tx.Exec(r.Context(), "INSERT INTO nodes(id,name,host,token_hash,control_start,control_end,port_start,port_end) VALUES($1,$2,$3,$4,$5,$6,$7,$8)", id, v.Name, v.Host, Digest(token), v.ControlStart, v.ControlEnd, v.PortStart, v.PortEnd)
+	_, e = tx.Exec(r.Context(), "INSERT INTO nodes(id,name,host,token_hash,control_start,control_end,port_start,port_end,tls_public_ca) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)", id, v.Name, v.Host, Digest(token), v.ControlStart, v.ControlEnd, v.PortStart, v.PortEnd, v.PublicCA)
 	if e != nil {
 		return e
 	}
@@ -589,14 +613,25 @@ func (a *API) createNode(w http.ResponseWriter, r *http.Request, p *Principal) e
 	return nil
 }
 func validHost(h string) bool {
-	if len(h) == 0 || len(h) > 253 || strings.ContainsAny(h, "/\\\" \t\r\n") {
+	if len(h) == 0 || len(h) > 253 {
 		return false
 	}
 	if net.ParseIP(h) != nil {
 		return true
 	}
-	u, e := url.Parse("https://" + h)
-	return e == nil && u.Hostname() == h && u.Port() == "" && !strings.Contains(h, ":")
+	if h == "localhost" {
+		return true
+	}
+	if len(strings.Split(h, ".")) < 2 {
+		return false
+	}
+	label := regexp.MustCompile(`^[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$`)
+	for _, part := range strings.Split(h, ".") {
+		if !label.MatchString(part) {
+			return false
+		}
+	}
+	return true
 }
 func (a *API) nodeState(w http.ResponseWriter, r *http.Request, p *Principal) error {
 	if p.Role != "super" {

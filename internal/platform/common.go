@@ -20,7 +20,7 @@ import (
 	"time"
 )
 
-const Version = "0.1.4"
+const Version = "0.2.0"
 const FRPVersion = "0.71.1"
 const LeaseSeconds = 15
 
@@ -44,6 +44,10 @@ type Config struct {
 	PluginListen string `json:"plugin_listen"`
 	CAFile       string `json:"ca_file"`
 	DeviceID     string `json:"device_id"`
+	PoolCount    int    `json:"pool_count,omitempty"`
+	TCPMux       *bool  `json:"tcp_mux,omitempty"`
+	LogLevel     string `json:"log_level,omitempty"`
+	MaxLogDays   int    `json:"max_log_days,omitempty"`
 }
 
 func ReadConfig(path string) (Config, error) {

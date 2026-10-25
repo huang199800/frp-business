@@ -1,4 +1,4 @@
-# HTTP API · v0.1.0
+# HTTP API · v0.2.0
 
 基础 URL：配置中的 HTTPS public_url。成功返回 JSON。错误格式统一 `{"error":"可操作的中文原因"}`；400 参数/规则错误、401 凭据失效、403 权限/权益错误、404 无属主记录、429 限流、500 内部错误、503 数据库不可用。未知方法可能由 Go 返回标准405文本，客户端应先检查状态码。
 
@@ -56,7 +56,7 @@ curl --fail-with-body https://portal.example.com/api/redeem \
 | POST /api/tunnels | 见下 | 201 Tunnel；remote_port=0自动分配 |
 | PATCH /api/tunnels/{id} | `{name,local_host,local_port,paused}` | 仅本人，完整提交这四字段；返回state=saved |
 | DELETE /api/tunnels/{id} | 无 | 仅本人，释放端口；返回state=saved |
-| GET /api/device/config | 无 | **设备Bearer**，返回`{version:1,host,grant,config_version,state:"saved"}` |
+| GET /api/device/config | 无 | **设备Bearer**，返回`{version:1,host,grant,public_ca,config_version,state:"saved"}`；public_ca决定节点证书信任方式 |
 
 创建隧道：
 
@@ -73,6 +73,7 @@ curl --fail-with-body https://portal.example.com/api/redeem \
 | 方法/路径 | 请求 | 响应 |
 |---|---|---|
 | POST /api/node/lease | 节点Bearer；`{node_id,nonce}`，nonce为32位随机Base32 | `{payload,signature}`，均为Base64；payload为Ed25519签名JSON |
+| POST /api/node/setup | 节点Bearer；`{node_id}` | 校验节点身份与公网证书模式，返回`{host,tls_public_ca:true,verify_key}` |
 | POST /api/node/check | 节点Bearer；`{node_id,device_id,op,proxy}` | 在线核实权益和隧道，允许返回`{ok:true}`，否则拒绝 |
 
 租约载荷：`version=1,node_id,nonce,issued_at,until,grants[]`。节点核对挑战、签名、公钥、节点身份、最大15秒期限和时钟；payload不得直接由客户端提供。grants中有设备id、独立控制端口、token、套餐到期、单隧道KiB/s及隧道白名单。节点不能请求其他节点的租约。
@@ -87,7 +88,7 @@ curl --fail-with-body https://portal.example.com/api/redeem \
 |---|---|
 | GET /api/admin/overview | `{nodes,plans,batches,users}`；users最多500，batches最多200；不含密码/密钥 |
 | GET /api/admin/audit | 最近500条审计；actor/action/target/detail/time |
-| POST /api/admin/nodes | `{name,host,control_start,control_end,port_start,port_end}` → 201 `{node_id,credential,verify_key}`，明文凭据一次返回 |
+| POST /api/admin/nodes | `{name,host,control_start,control_end,port_start,port_end,tls_public_ca:true}` → 201 `{node_id,credential,verify_key}`，明文凭据一次返回；默认节点的 tls_public_ca 为 false |
 | POST /api/admin/nodes/{id}/state | `{enabled:boolean}`；维护停止授权；仅super |
 | POST /api/admin/plans | `{name,node_id,max_devices,max_tunnels,tunnel_kibps,price_cents}` → 201 `{id}` |
 | POST /api/admin/cards | 见下 → 201 `{batch_id,codes,warning}`；明文仅本响应返回 |

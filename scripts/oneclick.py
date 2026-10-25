@@ -33,7 +33,7 @@ if os.name=='posix':
     import grp
     import pwd
 
-VERSION = '0.1.4'
+VERSION = '0.2.0'
 CONFIG = Path('/etc/frp-portal')
 ROOT = Path('/opt/frp-portal/oneclick')
 STATE = CONFIG / 'oneclick.json'

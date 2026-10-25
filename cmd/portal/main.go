@@ -14,10 +14,13 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"io"
 	"io/fs"
 	"log/slog"
 	"math/big"
 	"net"
+	"net/http"
+	"net/url"
 	"os"
 	"os/signal"
 	"path/filepath"
@@ -47,7 +50,7 @@ func main() {
 }
 func entry() error {
 	if len(os.Args) < 2 {
-		return errors.New("用法: portal version|init|migrate|bootstrap|serve|node|bind|agent|diagnose|guard|dev-cert [参数]")
+		return errors.New("用法: portal version|connect|init|migrate|bootstrap|serve|node|bind|agent|diagnose|guard|dev-cert [参数]")
 	}
 	command := os.Args[1]
 	if command == "version" {
@@ -55,7 +58,21 @@ func entry() error {
 		return nil
 	}
 	f := flag.NewFlagSet(command, flag.ContinueOnError)
-	path := f.String("config", "control.json", "配置文件")
+	defaultConfig := "control.json"
+	if command == "connect" {
+		base, e := os.UserConfigDir()
+		if e != nil {
+			return e
+		}
+		defaultConfig = filepath.Join(base, "frp-portal", "agent.json")
+	}
+	path := f.String("config", defaultConfig, "配置文件")
+	controlURL := f.String("control-url", "https://frpc.hhse.top", "服务平台 HTTPS 地址")
+	setupOnly := f.Bool("setup-only", false, "仅配置和绑定，暂不启动客户端")
+	poolCount := f.Int("pool-count", 0, "预建立连接池数量（0-10）")
+	tcpMux := f.Bool("tcp-mux", true, "TCP 多路复用")
+	logLevel := f.String("log-level", "error", "FRP 日志级别：error/warn/info/debug")
+	maxLogDays := f.Int("max-log-days", 7, "FRP 日志保留天数（1-30）")
 	dir := f.String("dir", ".", "初始化目录")
 	email := f.String("email", "", "管理员邮箱")
 	code := f.String("code", "", "一次性设备绑定码（建议通过标准输入）")
@@ -115,6 +132,11 @@ func entry() error {
 	}
 	if command == "dev-cert" {
 		return devCert(*dir, *host)
+	}
+	if command == "connect" {
+		ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+		defer cancel()
+		return connect(ctx, *path, *controlURL, *code, *setupOnly, *poolCount, *tcpMux, *logLevel, *maxLogDays)
 	}
 	c, e := platform.ReadConfig(*path)
 	if e != nil {
@@ -180,6 +202,101 @@ func entry() error {
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer cancel()
 	return run(ctx)
+}
+func connect(ctx context.Context, path, controlURL, code string, setupOnly bool, poolCount int, tcpMux bool, logLevel string, maxLogDays int) error {
+	if poolCount < 0 || poolCount > 10 || maxLogDays < 1 || maxLogDays > 30 {
+		return errors.New("连接池须为0-10，日志保留天数须为1-30")
+	}
+	switch logLevel {
+	case "error", "warn", "info", "debug":
+	default:
+		return errors.New("日志级别须为error/warn/info/debug")
+	}
+	u, e := url.Parse(controlURL)
+	if e != nil || u.Scheme != "https" || u.Hostname() == "" || u.User != nil || u.RawQuery != "" || u.Fragment != "" || u.Path != "" {
+		return errors.New("平台地址须为 https://域名")
+	}
+	var c platform.Config
+	if _, e = os.Stat(path); e == nil {
+		c, e = platform.ReadConfig(path)
+		if e != nil {
+			return e
+		}
+		if c.ControlURL != controlURL {
+			return errors.New("已有绑定属于另一个平台；请先备份配置，勿覆盖现有设备")
+		}
+	} else if !os.IsNotExist(e) {
+		return e
+	} else {
+		binary, e := os.Executable()
+		if e != nil {
+			return e
+		}
+		frpc := filepath.Join(filepath.Dir(binary), "frpc")
+		if strings.EqualFold(filepath.Ext(binary), ".exe") {
+			frpc += ".exe"
+		}
+		if _, e = os.Stat(frpc); e != nil {
+			return fmt.Errorf("客户端缺少同目录的 frpc 程序: %w", e)
+		}
+		if e = os.MkdirAll(filepath.Dir(path), 0700); e != nil {
+			return e
+		}
+		caPath := filepath.Join(filepath.Dir(path), "node-ca.pem")
+		client := &http.Client{Timeout: 15 * time.Second}
+		response, e := client.Get(controlURL + "/downloads/node-ca.pem")
+		if e != nil {
+			return fmt.Errorf("下载节点信任证书失败: %w", e)
+		}
+		defer response.Body.Close()
+		if response.StatusCode != 200 || response.Request.URL.Host != u.Host {
+			return errors.New("平台证书下载地址或响应无效")
+		}
+		pemBytes, e := io.ReadAll(io.LimitReader(response.Body, 1<<20))
+		if e != nil {
+			return e
+		}
+		block, _ := pem.Decode(pemBytes)
+		if block == nil || block.Type != "CERTIFICATE" {
+			return errors.New("节点信任证书格式无效")
+		}
+		cert, e := x509.ParseCertificate(block.Bytes)
+		if e != nil || !cert.IsCA {
+			return errors.New("下载的节点信任证书不是 CA")
+		}
+		if e = os.WriteFile(caPath, pemBytes, 0600); e != nil {
+			return e
+		}
+		c = platform.Config{ControlURL: controlURL, FRPPath: frpc, CAFile: caPath, StateDir: filepath.Join(filepath.Dir(path), "state"), PoolCount: poolCount, TCPMux: &tcpMux, LogLevel: logLevel, MaxLogDays: maxLogDays}
+		if e = platform.SaveConfig(path, c); e != nil {
+			return e
+		}
+	}
+	if c.DeviceID == "" {
+		if code == "" {
+			fmt.Print("请粘贴控制台生成的 5 分钟绑定码: ")
+			line, err := bufio.NewReader(os.Stdin).ReadString('\n')
+			if err != nil && line == "" {
+				return err
+			}
+			code = strings.TrimSpace(line)
+		}
+		if code == "" {
+			return errors.New("绑定码不能为空")
+		}
+		if e = platform.BindClient(ctx, c, code, path); e != nil {
+			return e
+		}
+		c, e = platform.ReadConfig(path)
+		if e != nil {
+			return e
+		}
+	}
+	fmt.Println("设备已连接。服务器地址、端口和专属密钥由平台自动下发。")
+	if setupOnly {
+		return nil
+	}
+	return platform.Agent(ctx, c)
 }
 func devCert(dir, host string) error {
 	if e := os.MkdirAll(dir, 0700); e != nil {

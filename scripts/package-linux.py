@@ -6,12 +6,13 @@ import gzip
 from pathlib import Path
 import tarfile
 
-p=argparse.ArgumentParser();p.add_argument('--out',default='release');p.add_argument('--version',default='0.1.4');a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('--out',default='release');p.add_argument('--version',default='0.2.0');a=p.parse_args()
 root=Path(__file__).resolve().parents[1];out=Path(a.out).resolve();out.mkdir(parents=True,exist_ok=True);manifest=[]
 for arch in ('amd64','arm64'):
     name=f'frp-portal-{a.version}-linux-{arch}.tar.gz';archive=out/name
     files={n:root/'dist'/('linux-'+arch)/n for n in ('portal','frps','frpc')}
     files['oneclick.py']=root/'scripts/oneclick.py'
+    files['node-oneclick.py']=root/'scripts/node-oneclick.py'
     files['README.md']=root/'docs/Linux一键部署.md'
     for f in (root/'third_party').rglob('*'):
         if f.is_file():files[f.relative_to(root).as_posix()]=f

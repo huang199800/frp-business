@@ -64,6 +64,11 @@ func (s *Store) Migrate(ctx context.Context) error {
 	if _, e = tx.Exec(ctx, string(b)); e != nil {
 		return e
 	}
+	// Additive and reversible at the binary level: the previous release ignores this column.
+	// Keep schema_versions at 1 so an emergency binary rollback remains bootable.
+	if _, e = tx.Exec(ctx, "ALTER TABLE nodes ADD COLUMN IF NOT EXISTS tls_public_ca boolean NOT NULL DEFAULT false"); e != nil {
+		return e
+	}
 	return tx.Commit(ctx)
 }
 func audit(ctx context.Context, tx pgx.Tx, actor, action, target string, detail any) error {
